@@ -1,7 +1,7 @@
 {
-  "name": "static-react-spa",
+  "name": "wildmat-dev",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -25,5 +25,10 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
-  }
+  },
+  "description": "Matt Wilde personal site",
+  "main": "index.js",
+  "repository": "https://github.com/wildemat/wildmat-dev-site.git",
+  "author": "mwilde345@gmail.com",
+  "license": "MIT"
 }
