@@ -1,0 +1,10 @@
+// -----------------------------------------------------------------------------
+// This file contains all abstracts imports.
+// These files don't output any CSS, only variables, functions, and mixins.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@forward 'variables';
+@forward 'functions';
+@forward 'mixins';
+

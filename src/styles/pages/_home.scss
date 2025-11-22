@@ -1,0 +1,84 @@
+// -----------------------------------------------------------------------------
+// This file contains styles specific to the home page.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@use '../abstracts' as *;
+
+.home {
+  &__hero {
+    padding: spacing('xxl') 0;
+    text-align: center;
+    
+    @include respond-to('medium') {
+      padding: calc(spacing('xxl') * 1.5) 0;
+    }
+    
+    &-title {
+      margin-bottom: spacing('md');
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: font-weight('bold');
+      line-height: 1.1;
+      
+      span {
+        color: $brand-color;
+      }
+    }
+    
+    &-subtitle {
+      margin-bottom: spacing('lg');
+      font-size: font-size('h4');
+      color: $mid-grey;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    &-cta {
+      display: flex;
+      flex-direction: column;
+      gap: spacing('sm');
+      align-items: center;
+      justify-content: center;
+      
+      @include respond-to('medium') {
+        flex-direction: row;
+        gap: spacing('md');
+      }
+    }
+  }
+  
+  &__featured {
+    padding: spacing('xl') 0;
+    background-color: $light-grey;
+    
+    &-title {
+      margin-bottom: spacing('lg');
+      text-align: center;
+      font-size: font-size('h2');
+    }
+  }
+  
+  &__about {
+    padding: spacing('xxl') 0;
+    
+    &-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: spacing('xl');
+      align-items: center;
+      
+      @include respond-to('large') {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    &-image {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba($dark-grey, 0.1);
+    }
+  }
+}
+

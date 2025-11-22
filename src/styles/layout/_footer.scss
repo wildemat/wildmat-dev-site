@@ -1,0 +1,104 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@use '../abstracts' as *;
+
+.footer {
+  width: 100%;
+  margin-top: auto;
+  padding: spacing('xl') 0 spacing('md');
+  background-color: $dark-grey;
+  color: $light-grey;
+  
+  &__container {
+    @include container;
+  }
+  
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: spacing('lg');
+    margin-bottom: spacing('lg');
+    
+    @include respond-to('medium') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include respond-to('large') {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  &__section {
+    &-title {
+      margin-bottom: spacing('sm');
+      font-size: font-size('h5');
+      font-weight: font-weight('semibold');
+      color: white;
+    }
+  }
+  
+  &__list {
+    @include list-reset;
+    display: flex;
+    flex-direction: column;
+    gap: spacing('xs');
+  }
+  
+  &__link {
+    @include link-reset;
+    color: $light-grey;
+    font-size: font-size('small');
+    transition: color $base-duration $base-timing;
+    
+    @include on-event {
+      color: white;
+    }
+    
+    @include focus-ring($color: white);
+  }
+  
+  &__bottom {
+    padding-top: spacing('md');
+    border-top: 1px solid rgba($light-grey, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: spacing('sm');
+    align-items: center;
+    font-size: font-size('small');
+    
+    @include respond-to('medium') {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+  
+  &__social {
+    display: flex;
+    gap: spacing('sm');
+    @include list-reset;
+  }
+  
+  &__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: $light-grey;
+    background-color: rgba($light-grey, 0.1);
+    border-radius: 50%;
+    transition: all $base-duration $base-timing;
+    
+    @include on-event {
+      background-color: $brand-color;
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    @include focus-ring($color: white);
+  }
+}
+

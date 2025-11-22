@@ -1,0 +1,11 @@
+// -----------------------------------------------------------------------------
+// This file contains all component imports.
+// Components are reusable UI elements.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@forward 'button';
+@forward 'card';
+@forward 'form';
+@forward 'badge';
+

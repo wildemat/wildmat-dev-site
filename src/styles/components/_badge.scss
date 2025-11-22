@@ -1,0 +1,73 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the badge component.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@use '../abstracts' as *;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: spacing('xxs') spacing('xs');
+  font-size: font-size('tiny');
+  font-weight: font-weight('semibold');
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  
+  // Variants
+  &--primary {
+    background-color: $brand-color;
+    color: white;
+  }
+  
+  &--secondary {
+    background-color: $light-grey;
+    color: $dark-grey;
+  }
+  
+  &--success {
+    background-color: $success-color;
+    color: white;
+  }
+  
+  &--warning {
+    background-color: $warning-color;
+    color: $dark-grey;
+  }
+  
+  &--error {
+    background-color: $error-color;
+    color: white;
+  }
+  
+  &--outline {
+    background-color: transparent;
+    color: $brand-color;
+    border: 1px solid $brand-color;
+  }
+  
+  // Sizes
+  &--small {
+    padding: 2px spacing('xxs');
+    font-size: 0.625rem;
+  }
+  
+  &--large {
+    padding: spacing('xs') spacing('sm');
+    font-size: font-size('small');
+  }
+  
+  // Pill shape
+  &--pill {
+    border-radius: 999px;
+  }
+  
+  // With icon
+  &--with-icon {
+    gap: spacing('xxs');
+  }
+}
+

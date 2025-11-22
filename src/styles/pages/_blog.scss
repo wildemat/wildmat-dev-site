@@ -1,0 +1,174 @@
+// -----------------------------------------------------------------------------
+// This file contains styles specific to the blog pages.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@use '../abstracts' as *;
+
+.blog {
+  &__header {
+    padding: spacing('xl') 0;
+    text-align: center;
+    background: linear-gradient(135deg, $brand-color 0%, shade($brand-color, 20%) 100%);
+    color: white;
+    
+    &-title {
+      margin-bottom: spacing('sm');
+      font-size: font-size('h1');
+    }
+    
+    &-description {
+      font-size: font-size('h5');
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+  
+  &__filters {
+    padding: spacing('lg') 0;
+    border-bottom: 1px solid $mid-grey;
+    
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: spacing('md');
+      
+      @include respond-to('medium') {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+  
+  &__search {
+    flex: 1;
+    max-width: 400px;
+  }
+  
+  &__categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: spacing('xs');
+  }
+  
+  &__grid {
+    padding: spacing('xl') 0;
+  }
+  
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: spacing('sm');
+    padding: spacing('xl') 0;
+  }
+}
+
+// Single blog post
+.post {
+  &__header {
+    padding: spacing('xl') 0;
+    text-align: center;
+    
+    &-category {
+      display: inline-block;
+      margin-bottom: spacing('sm');
+    }
+    
+    &-title {
+      margin-bottom: spacing('md');
+      font-size: clamp(2rem, 5vw, 3rem);
+    }
+    
+    &-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: spacing('md');
+      justify-content: center;
+      align-items: center;
+      color: $mid-grey;
+      font-size: font-size('small');
+    }
+    
+    &-divider {
+      width: 60px;
+      height: 3px;
+      background-color: $brand-color;
+      margin: spacing('lg') auto;
+    }
+  }
+  
+  &__featured-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: spacing('xl');
+  }
+  
+  &__content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: spacing('lg') 0;
+    font-size: font-size('h6');
+    line-height: 1.8;
+    
+    img {
+      margin: spacing('lg') 0;
+      border-radius: 8px;
+    }
+    
+    // Add spacing to headings within content
+    h2,
+    h3,
+    h4 {
+      margin-top: spacing('xl');
+      margin-bottom: spacing('md');
+    }
+  }
+  
+  &__footer {
+    padding: spacing('xl') 0;
+    border-top: 1px solid $mid-grey;
+    
+    &-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: spacing('xs');
+      margin-bottom: spacing('lg');
+    }
+  }
+  
+  &__author {
+    display: flex;
+    gap: spacing('md');
+    padding: spacing('md');
+    background-color: $light-grey;
+    border-radius: 12px;
+    
+    &-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    &-info {
+      flex: 1;
+    }
+    
+    &-name {
+      margin-bottom: spacing('xxs');
+      font-size: font-size('h5');
+      font-weight: font-weight('bold');
+    }
+    
+    &-bio {
+      color: $mid-grey;
+      font-size: font-size('small');
+    }
+  }
+}
+

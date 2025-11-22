@@ -1,0 +1,121 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to navigation.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@use '../abstracts' as *;
+
+.nav {
+  &__list {
+    @include list-reset;
+    display: flex;
+    gap: spacing('md');
+  }
+  
+  &__item {
+    position: relative;
+  }
+  
+  &__link {
+    @include link-reset;
+    display: block;
+    padding: spacing('xs') spacing('sm');
+    color: $dark-grey;
+    font-weight: font-weight('medium');
+    transition: color $base-duration $base-timing;
+    border-radius: 6px;
+    
+    @include on-event {
+      color: $brand-color;
+      background-color: rgba($brand-color, 0.1);
+    }
+    
+    @include focus-ring;
+    
+    &--active {
+      color: $brand-color;
+      background-color: rgba($brand-color, 0.1);
+    }
+  }
+}
+
+// Mobile navigation
+.mobile-nav {
+  &__list {
+    @include list-reset;
+    display: flex;
+    flex-direction: column;
+    gap: spacing('xs');
+  }
+  
+  &__link {
+    @include link-reset;
+    display: block;
+    padding: spacing('sm');
+    color: $dark-grey;
+    font-weight: font-weight('medium');
+    border-radius: 6px;
+    transition: all $base-duration $base-timing;
+    
+    @include on-event {
+      color: $brand-color;
+      background-color: rgba($brand-color, 0.1);
+      padding-left: spacing('md');
+    }
+    
+    @include focus-ring;
+    
+    &--active {
+      color: $brand-color;
+      background-color: rgba($brand-color, 0.1);
+      border-left: 3px solid $brand-color;
+    }
+  }
+}
+
+// Breadcrumbs
+.breadcrumbs {
+  @include list-reset;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: spacing('xs');
+  margin-bottom: spacing('md');
+  font-size: font-size('small');
+  
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: spacing('xs');
+    
+    &::after {
+      content: '/';
+      color: $mid-grey;
+      margin-left: spacing('xs');
+    }
+    
+    &:last-child {
+      &::after {
+        display: none;
+      }
+    }
+  }
+  
+  &__link {
+    @include link-reset;
+    color: $mid-grey;
+    transition: color $base-duration $base-timing;
+    
+    @include on-event {
+      color: $brand-color;
+    }
+    
+    @include focus-ring;
+  }
+  
+  &__current {
+    color: $dark-grey;
+    font-weight: font-weight('medium');
+  }
+}
+

@@ -1,0 +1,93 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the header of the site.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@use '../abstracts' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid $mid-grey;
+  z-index: z('header');
+  
+  &__container {
+    @include container;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: spacing('sm');
+    padding-bottom: spacing('sm');
+    
+    @include respond-to('medium') {
+      padding-top: spacing('md');
+      padding-bottom: spacing('md');
+    }
+  }
+  
+  &__logo {
+    font-size: font-size('h4');
+    font-weight: font-weight('bold');
+    color: $brand-color;
+    text-decoration: none;
+    transition: opacity $base-duration $base-timing;
+    
+    @include on-event {
+      opacity: 0.8;
+    }
+    
+    @include focus-ring;
+  }
+  
+  &__nav {
+    display: none;
+    
+    @include respond-to('medium') {
+      display: flex;
+      gap: spacing('md');
+    }
+  }
+  
+  &__mobile-toggle {
+    @include button-reset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    
+    @include respond-to('medium') {
+      display: none;
+    }
+    
+    @include focus-ring;
+  }
+  
+  &__mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-bottom: 1px solid $mid-grey;
+    padding: spacing('md');
+    
+    &--open {
+      display: block;
+    }
+    
+    @include respond-to('medium') {
+      display: none !important;
+    }
+  }
+  
+  &__mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: spacing('sm');
+  }
+}
+

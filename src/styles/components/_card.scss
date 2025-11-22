@@ -1,0 +1,144 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the card component.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@use '../abstracts' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid $mid-grey;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all $base-duration $base-timing;
+  
+  &--hover {
+    @include on-event {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba($dark-grey, 0.1);
+      border-color: $brand-color;
+    }
+  }
+  
+  &--shadow {
+    box-shadow: 0 4px 12px rgba($dark-grey, 0.08);
+    border: none;
+  }
+  
+  &__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    
+    @include respond-to('medium') {
+      height: 240px;
+    }
+    
+    &-container {
+      position: relative;
+      overflow: hidden;
+      background-color: $light-grey;
+      
+      @include aspect-ratio(16, 9);
+    }
+  }
+  
+  &__badge {
+    position: absolute;
+    top: spacing('sm');
+    right: spacing('sm');
+    padding: spacing('xxs') spacing('xs');
+    background-color: $brand-color;
+    color: white;
+    font-size: font-size('tiny');
+    font-weight: font-weight('semibold');
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: spacing('md');
+    
+    @include respond-to('medium') {
+      padding: spacing('lg');
+    }
+  }
+  
+  &__title {
+    margin-bottom: spacing('xs');
+    font-size: font-size('h4');
+    font-weight: font-weight('bold');
+    color: $dark-grey;
+    
+    a {
+      @include link-reset;
+      color: inherit;
+      transition: color $base-duration $base-timing;
+      
+      @include on-event {
+        color: $brand-color;
+      }
+    }
+  }
+  
+  &__description {
+    margin-bottom: spacing('sm');
+    color: $mid-grey;
+    font-size: font-size('small');
+    line-height: 1.6;
+    @include line-clamp(3);
+  }
+  
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: spacing('sm');
+    margin-bottom: spacing('sm');
+    font-size: font-size('small');
+    color: $mid-grey;
+  }
+  
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: spacing('xxs');
+  }
+  
+  &__footer {
+    margin-top: auto;
+    padding-top: spacing('sm');
+    border-top: 1px solid $light-grey;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: spacing('sm');
+  }
+  
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: spacing('xs');
+    @include list-reset;
+  }
+  
+  &__tag {
+    padding: spacing('xxs') spacing('xs');
+    background-color: $light-grey;
+    color: $dark-grey;
+    font-size: font-size('tiny');
+    border-radius: 4px;
+    transition: all $base-duration $base-timing;
+    
+    @include on-event {
+      background-color: $brand-color;
+      color: white;
+    }
+  }
+}
+

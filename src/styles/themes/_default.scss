@@ -1,0 +1,59 @@
+// -----------------------------------------------------------------------------
+// This file contains the default theme for the application.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@use '../abstracts' as *;
+
+// Default theme is light mode
+:root {
+  // Brand colors
+  --color-brand: #{$brand-color};
+  --color-brand-light: #{tint($brand-color, 20%)};
+  --color-brand-dark: #{shade($brand-color, 20%)};
+  
+  // Neutral colors
+  --color-text: #{$dark-grey};
+  --color-text-light: #{$mid-grey};
+  --color-background: #ffffff;
+  --color-surface: #{$light-grey};
+  
+  // State colors
+  --color-success: #{$success-color};
+  --color-warning: #{$warning-color};
+  --color-error: #{$error-color};
+  
+  // Border
+  --color-border: #{$mid-grey};
+  
+  // Shadows
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+// Dark mode theme
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: #{$light-grey};
+    --color-text-light: #{$mid-grey};
+    --color-background: #{$dark-grey};
+    --color-surface: hsl(0, 0%, 15%);
+    --color-border: hsl(0, 0%, 30%);
+  }
+}
+
+// Dark mode class override (for manual toggle)
+.dark-mode {
+  --color-text: #{$light-grey};
+  --color-text-light: #{$mid-grey};
+  --color-background: #{$dark-grey};
+  --color-surface: hsl(0, 0%, 15%);
+  --color-border: hsl(0, 0%, 30%);
+  
+  // Adjust shadows for dark mode
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+

@@ -1,0 +1,9 @@
+// -----------------------------------------------------------------------------
+// This file contains all base imports.
+// These are the foundational styles for the application.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@forward 'reset';
+@forward 'typography';
+

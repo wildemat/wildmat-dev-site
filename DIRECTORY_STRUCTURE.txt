@@ -1,0 +1,159 @@
+wildmat-dev-site/
+│
+├── 📄 Configuration Files
+│   ├── package.json                    # Dependencies and scripts
+│   ├── tsconfig.json                   # TypeScript configuration
+│   ├── tsconfig.app.json              # App-specific TS config
+│   ├── tsconfig.node.json             # Node-specific TS config
+│   ├── vite.config.ts                 # Vite build configuration
+│   ├── tailwind.config.ts             # Tailwind CSS configuration
+│   ├── postcss.config.js              # PostCSS configuration
+│   └── eslint.config.js               # ESLint configuration
+│
+├── 📚 Documentation
+│   ├── README.md                       # Main project documentation
+│   ├── STYLES_GUIDE.md                # Comprehensive Sass guide
+│   ├── SASS_QUICK_REFERENCE.md        # Quick reference for common patterns
+│   ├── PROJECT_OVERVIEW.md            # Project summary and getting started
+│   └── DIRECTORY_STRUCTURE.txt        # This file
+│
+├── 🎨 Source Code (src/)
+│   │
+│   ├── 🧩 Components (components/)
+│   │   │
+│   │   ├── ui/                        # Base UI components (shadcn-inspired)
+│   │   │   ├── Button.tsx            # Button with variants (CVA)
+│   │   │   ├── Card.tsx              # Card with header, content, footer
+│   │   │   └── Badge.tsx             # Badge with color variants
+│   │   │
+│   │   ├── layout/                    # Layout components
+│   │   │   ├── Header.tsx            # Responsive header with nav
+│   │   │   └── Footer.tsx            # Footer with links & social
+│   │   │
+│   │   ├── blog/                      # Blog-specific components
+│   │   │   └── BlogCard.tsx          # Blog post card component
+│   │   │
+│   │   └── sections/                  # Page sections
+│   │       └── Hero.tsx              # Hero section component
+│   │
+│   ├── 🎨 Styles (styles/) - 7-1 Sass Architecture
+│   │   │
+│   │   ├── abstracts/                 # Tools & helpers (no CSS output)
+│   │   │   ├── _variables.scss       # Colors, spacing, typography, breakpoints
+│   │   │   ├── _functions.scss       # spacing(), font-size(), z(), tint(), shade()
+│   │   │   ├── _mixins.scss          # respond-to(), on-event(), focus-ring()
+│   │   │   └── _index.scss           # Forward all abstracts
+│   │   │
+│   │   ├── base/                      # Foundation styles
+│   │   │   ├── _reset.scss           # Modern CSS reset
+│   │   │   ├── _typography.scss      # Base typography styles
+│   │   │   └── _index.scss
+│   │   │
+│   │   ├── components/                # Component styles
+│   │   │   ├── _button.scss          # Button variants & states
+│   │   │   ├── _card.scss            # Card component styles
+│   │   │   ├── _form.scss            # Form elements
+│   │   │   ├── _badge.scss           # Badge styles
+│   │   │   └── _index.scss
+│   │   │
+│   │   ├── layout/                    # Layout components
+│   │   │   ├── _header.scss          # Header & mobile menu
+│   │   │   ├── _footer.scss          # Footer with grid
+│   │   │   ├── _grid.scss            # Grid system & utilities
+│   │   │   ├── _navigation.scss      # Nav patterns & breadcrumbs
+│   │   │   └── _index.scss
+│   │   │
+│   │   ├── pages/                     # Page-specific styles
+│   │   │   ├── _home.scss            # Home page styles
+│   │   │   ├── _blog.scss            # Blog page styles
+│   │   │   └── _index.scss
+│   │   │
+│   │   ├── themes/                    # Theme variations
+│   │   │   ├── _default.scss         # Light/dark theme
+│   │   │   └── _index.scss
+│   │   │
+│   │   ├── vendors/                   # Third-party CSS
+│   │   │   └── _index.scss           # Placeholder for vendor styles
+│   │   │
+│   │   └── main.scss                  # 🎯 Main entry (imports all 7 folders)
+│   │
+│   ├── 🛠️ Utilities (lib/)
+│   │   └── utils.ts                   # cn() for class merging
+│   │
+│   ├── 📄 Entry Files
+│   │   ├── App.tsx                    # Main app component
+│   │   ├── main.tsx                   # React entry point
+│   │   ├── index.css                  # Tailwind imports & CSS variables
+│   │   └── vite-env.d.ts             # Vite type definitions
+│   │
+│   └── 🖼️ Assets (assets/)
+│       └── react.svg                  # React logo
+│
+├── 🌐 Public (public/)
+│   └── (static files go here)
+│
+└── 📦 Build Output (dist/)
+    ├── index.html                     # Built HTML
+    └── assets/                        # Built CSS & JS
+        ├── index-*.css               # ~47KB (10KB gzipped)
+        └── index-*.js                # ~190KB (60KB gzipped)
+
+═══════════════════════════════════════════════════════════════
+
+📊 PROJECT STATISTICS
+
+Total Files Created:      40+
+Sass Files:              24
+React Components:        8
+Documentation Files:     5
+Configuration Files:     7
+
+═══════════════════════════════════════════════════════════════
+
+🎨 SASS 7-1 ARCHITECTURE BREAKDOWN
+
+1. abstracts/    - Variables, functions, mixins (no CSS output)
+2. base/         - Reset, typography, foundational styles
+3. components/   - Reusable UI component styles
+4. layout/       - Major layout structures
+5. pages/        - Page-specific styles
+6. themes/       - Theme variations
+7. vendors/      - Third-party CSS
++ main.scss      - Import everything
+
+═══════════════════════════════════════════════════════════════
+
+🎯 KEY FEATURES
+
+✅ Mobile-first responsive design (320px - 1280px+)
+✅ 8px baseline grid spacing system
+✅ Modern Sass with @use/@forward
+✅ BEM naming convention
+✅ Accessible components (WCAG 2.1 AA)
+✅ Dark mode support
+✅ Type-safe with TypeScript
+✅ shadcn-inspired component library
+✅ Tailwind + Sass hybrid approach
+✅ Production-ready build
+
+═══════════════════════════════════════════════════════════════
+
+🚀 QUICK START COMMANDS
+
+yarn dev         # Start development server
+yarn build       # Build for production
+yarn preview     # Preview production build
+yarn lint        # Run ESLint
+
+═══════════════════════════════════════════════════════════════
+
+📚 DOCUMENTATION GUIDE
+
+README.md                   → Full project documentation
+STYLES_GUIDE.md            → Detailed Sass architecture guide
+SASS_QUICK_REFERENCE.md    → Quick syntax reference
+PROJECT_OVERVIEW.md        → Getting started & summary
+DIRECTORY_STRUCTURE.txt    → This file
+
+═══════════════════════════════════════════════════════════════
+

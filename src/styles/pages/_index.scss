@@ -1,0 +1,9 @@
+// -----------------------------------------------------------------------------
+// This file contains all page-specific imports.
+// These are styles that apply only to specific pages.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@forward 'home';
+@forward 'blog';
+

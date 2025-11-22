@@ -1,0 +1,11 @@
+// -----------------------------------------------------------------------------
+// This file contains all layout imports.
+// These define the main structural elements of the application.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@forward 'header';
+@forward 'footer';
+@forward 'grid';
+@forward 'navigation';
+

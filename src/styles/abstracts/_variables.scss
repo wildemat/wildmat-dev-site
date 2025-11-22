@@ -1,0 +1,162 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+/// Regular font family
+/// @type List
+$text-font-stack: 'Inter', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
+
+/// Code (monospace) font family
+/// @type List
+$code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
+
+// -----------------------------------------------------------------------------
+// Colors
+// -----------------------------------------------------------------------------
+
+/// Main brand color
+/// @type Color
+$brand-color: hsl(222, 100%, 61%) !default;
+
+/// Light grey for backgrounds
+/// @type Color
+$light-grey: hsl(0, 0%, 98%) !default;
+
+/// Medium grey for borders and subtle elements
+/// @type Color
+$mid-grey: hsl(0, 0%, 80%) !default;
+
+/// Dark grey for text
+/// @type Color
+$dark-grey: hsl(0, 0%, 20%) !default;
+
+/// Success state color
+/// @type Color
+$success-color: hsl(145, 63%, 42%) !default;
+
+/// Warning state color
+/// @type Color
+$warning-color: hsl(45, 100%, 51%) !default;
+
+/// Error state color
+/// @type Color
+$error-color: hsl(348, 100%, 61%) !default;
+
+// -----------------------------------------------------------------------------
+// Breakpoints
+// Following mobile-first approach
+// -----------------------------------------------------------------------------
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1180px !default;
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  'small': 320px,
+  'medium': 768px,
+  'large': 1024px,
+  'xlarge': 1280px,
+) !default;
+
+// -----------------------------------------------------------------------------
+// Spacing
+// Using 8px baseline grid system
+// -----------------------------------------------------------------------------
+
+/// Base spacing unit
+/// @type Length
+$base-spacing: 8px !default;
+
+/// Spacing scale
+/// @type Map
+$spacing: (
+  'xxs': $base-spacing * 0.5,   // 4px
+  'xs': $base-spacing,           // 8px
+  'sm': $base-spacing * 2,       // 16px
+  'md': $base-spacing * 3,       // 24px
+  'lg': $base-spacing * 4,       // 32px
+  'xl': $base-spacing * 6,       // 48px
+  'xxl': $base-spacing * 8,      // 64px
+) !default;
+
+// -----------------------------------------------------------------------------
+// Typography
+// -----------------------------------------------------------------------------
+
+/// Base font size
+/// @type Length
+$base-font-size: 16px !default;
+
+/// Base line height
+/// @type Number
+$base-line-height: 1.5 !default;
+
+/// Heading font sizes
+/// @type Map
+$font-sizes: (
+  'h1': 2.5rem,
+  'h2': 2rem,
+  'h3': 1.75rem,
+  'h4': 1.5rem,
+  'h5': 1.25rem,
+  'h6': 1rem,
+  'base': 1rem,
+  'small': 0.875rem,
+  'tiny': 0.75rem,
+) !default;
+
+/// Font weights
+/// @type Map
+$font-weights: (
+  'light': 300,
+  'regular': 400,
+  'medium': 500,
+  'semibold': 600,
+  'bold': 700,
+) !default;
+
+// -----------------------------------------------------------------------------
+// Transitions & Animations
+// -----------------------------------------------------------------------------
+
+/// Base transition duration
+/// @type Time
+$base-duration: 200ms !default;
+
+/// Base transition easing
+/// @type Cubic-bezier
+$base-timing: ease-in-out !default;
+
+// -----------------------------------------------------------------------------
+// Border Radius
+// -----------------------------------------------------------------------------
+
+/// Border radius values
+/// @type Map
+$radius: (
+  'sm': 4px,
+  'md': 8px,
+  'lg': 12px,
+  'xl': 16px,
+  'full': 9999px,
+) !default;
+
+// -----------------------------------------------------------------------------
+// Z-index layers
+// -----------------------------------------------------------------------------
+
+/// Z-index map for managing stacking context
+/// @type Map
+$z-layers: (
+  'modal': 9000,
+  'dropdown': 8000,
+  'header': 7000,
+  'overlay': 6000,
+  'default': 1,
+  'below': -1,
+) !default;
+

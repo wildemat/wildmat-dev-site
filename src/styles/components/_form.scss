@@ -1,0 +1,150 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to form components.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@use '../abstracts' as *;
+
+.form {
+  &__group {
+    margin-bottom: spacing('md');
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__label {
+    display: block;
+    margin-bottom: spacing('xs');
+    font-weight: font-weight('medium');
+    font-size: font-size('small');
+    color: $dark-grey;
+    
+    &--required {
+      &::after {
+        content: ' *';
+        color: $error-color;
+      }
+    }
+  }
+  
+  &__input,
+  &__textarea,
+  &__select {
+    width: 100%;
+    padding: spacing('xs') spacing('sm');
+    font-size: font-size('base');
+    color: $dark-grey;
+    background-color: white;
+    border: 1px solid $mid-grey;
+    border-radius: 6px;
+    transition: all $base-duration $base-timing;
+    
+    &::placeholder {
+      color: rgba($mid-grey, 0.7);
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: $brand-color;
+      box-shadow: 0 0 0 3px rgba($brand-color, 0.1);
+    }
+    
+    &:disabled {
+      background-color: $light-grey;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    
+    &--error {
+      border-color: $error-color;
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($error-color, 0.1);
+      }
+    }
+    
+    &--success {
+      border-color: $success-color;
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($success-color, 0.1);
+      }
+    }
+  }
+  
+  &__textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  &__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right spacing('sm') center;
+    background-size: 12px;
+    padding-right: spacing('lg');
+  }
+  
+  &__help {
+    display: block;
+    margin-top: spacing('xxs');
+    font-size: font-size('small');
+    color: $mid-grey;
+  }
+  
+  &__error {
+    display: block;
+    margin-top: spacing('xxs');
+    font-size: font-size('small');
+    color: $error-color;
+  }
+  
+  &__success {
+    display: block;
+    margin-top: spacing('xxs');
+    font-size: font-size('small');
+    color: $success-color;
+  }
+}
+
+// Checkbox and Radio
+.checkbox,
+.radio {
+  display: flex;
+  align-items: flex-start;
+  gap: spacing('xs');
+  cursor: pointer;
+  
+  &__input {
+    margin-top: 2px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: $brand-color;
+    
+    @include focus-ring;
+  }
+  
+  &__label {
+    flex: 1;
+    font-size: font-size('base');
+    color: $dark-grey;
+    cursor: pointer;
+  }
+  
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+    .checkbox__input,
+    .checkbox__label,
+    .radio__input,
+    .radio__label {
+      cursor: not-allowed;
+    }
+  }
+}
+

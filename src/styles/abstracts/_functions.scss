@@ -1,0 +1,123 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass functions.
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+
+@use 'variables' as *;
+@use 'sass:map';
+@use 'sass:color';
+
+/// Native `url(..)` function wrapper
+/// @param {String} $base - base URL for the asset
+/// @param {String} $type - asset type folder (e.g. `fonts/`)
+/// @param {String} $path - asset path
+/// @return {Url}
+@function asset($base, $type, $path) {
+  @return url($base + $type + $path);
+}
+
+/// Returns URL to an image based on its path
+/// @param {String} $path - image path
+/// @param {String} $base [$base-url] - base URL
+/// @return {Url}
+/// @require $base-url
+@function image($path, $base: '/images/') {
+  @return asset($base, '', $path);
+}
+
+/// Returns URL to a font based on its path
+/// @param {String} $path - font path
+/// @param {String} $base [$base-url] - base URL
+/// @return {Url}
+/// @require $base-url
+@function font($path, $base: '/fonts/') {
+  @return asset($base, '', $path);
+}
+
+/// Get a value from a map
+/// @param {Map} $map - Map
+/// @param {String} $key - Key to get value for
+/// @return {*} Value from map
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map.get($map, $key);
+  }
+  @return $map;
+}
+
+/// Get spacing value from spacing scale
+/// @param {String} $size - Size key (xs, sm, md, lg, xl, xxl)
+/// @return {Length}
+/// @require $spacing
+@function spacing($size) {
+  @if not map.has-key($spacing, $size) {
+    @error 'Spacing size `#{$size}` not found. Available sizes: #{map.keys($spacing)}';
+  }
+  @return map.get($spacing, $size);
+}
+
+/// Get font size from font sizes map
+/// @param {String} $size - Size key
+/// @return {Length}
+/// @require $font-sizes
+@function font-size($size) {
+  @if not map.has-key($font-sizes, $size) {
+    @error 'Font size `#{$size}` not found. Available sizes: #{map.keys($font-sizes)}';
+  }
+  @return map.get($font-sizes, $size);
+}
+
+/// Get font weight from font weights map
+/// @param {String} $weight - Weight key
+/// @return {Number}
+/// @require $font-weights
+@function font-weight($weight) {
+  @if not map.has-key($font-weights, $weight) {
+    @error 'Font weight `#{$weight}` not found. Available weights: #{map.keys($font-weights)}';
+  }
+  @return map.get($font-weights, $weight);
+}
+
+/// Get z-index value from z-layers map
+/// @param {String} $layer - Layer name
+/// @return {Number}
+/// @require $z-layers
+@function z($layer) {
+  @if not map.has-key($z-layers, $layer) {
+    @error 'Z-index layer `#{$layer}` not found. Available layers: #{map.keys($z-layers)}';
+  }
+  @return map.get($z-layers, $layer);
+}
+
+/// Convert pixels to rem
+/// @param {Number} $px - Pixel value to convert
+/// @param {Number} $base [$base-font-size] - Base font size
+/// @return {Length}
+@function rem($px, $base: $base-font-size) {
+  @if unitless($px) {
+    $px: $px * 1px;
+  }
+  @if unitless($base) {
+    $base: $base * 1px;
+  }
+  @return calc($px / $base) * 1rem;
+}
+
+/// Slightly lighten a color
+/// @access public
+/// @param {Color} $color - color to tint
+/// @param {Number} $percentage - percentage of white to mix
+/// @return {Color}
+@function tint($color, $percentage) {
+  @return color.mix(white, $color, $percentage);
+}
+
+/// Slightly darken a color
+/// @access public
+/// @param {Color} $color - color to shade
+/// @param {Number} $percentage - percentage of black to mix
+/// @return {Color}
+@function shade($color, $percentage) {
+  @return color.mix(black, $color, $percentage);
+}
+

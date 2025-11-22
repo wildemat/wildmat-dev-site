@@ -1,0 +1,135 @@
+// -----------------------------------------------------------------------------
+// Main Sass file - 7-1 Architecture Pattern
+// Following Sass Guidelines: https://sass-guidelin.es/#architecture
+// -----------------------------------------------------------------------------
+// This file serves as the main entry point for all Sass stylesheets.
+// It follows the 7-1 pattern:
+// - 7 folders for different types of styles
+// - 1 file (this one) to import them all
+// 
+// The order of imports matters! Abstracts must come first as they don't
+// output CSS but provide variables, functions, and mixins used by other files.
+// -----------------------------------------------------------------------------
+
+// 1. Abstracts
+// Variables, functions, mixins - no CSS output
+@use 'abstracts';
+
+// 2. Vendors
+// Third-party stylesheets
+@use 'vendors';
+
+// 3. Base
+// Reset, typography, and other foundational styles
+@use 'base';
+
+// 4. Layout
+// Major layout components (header, footer, grid, etc.)
+@use 'layout';
+
+// 5. Components
+// Reusable UI components (buttons, cards, forms, etc.)
+@use 'components';
+
+// 6. Pages
+// Page-specific styles
+@use 'pages';
+
+// 7. Themes
+// Theme variations (light/dark mode, etc.)
+@use 'themes';
+
+// -----------------------------------------------------------------------------
+// Global utilities and helper classes
+// -----------------------------------------------------------------------------
+
+// Visibility utilities
+.visually-hidden {
+  @include abstracts.visually-hidden;
+}
+
+.hidden {
+  display: none !important;
+}
+
+// Display utilities
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+// Text utilities
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.truncate {
+  @include abstracts.truncate;
+}
+
+// Spacing utilities (following 8px grid)
+@each $name, $value in abstracts.$spacing {
+  .mt-#{$name} {
+    margin-top: $value;
+  }
+  
+  .mb-#{$name} {
+    margin-bottom: $value;
+  }
+  
+  .ml-#{$name} {
+    margin-left: $value;
+  }
+  
+  .mr-#{$name} {
+    margin-right: $value;
+  }
+  
+  .mx-#{$name} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+  
+  .my-#{$name} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+  
+  .pt-#{$name} {
+    padding-top: $value;
+  }
+  
+  .pb-#{$name} {
+    padding-bottom: $value;
+  }
+  
+  .pl-#{$name} {
+    padding-left: $value;
+  }
+  
+  .pr-#{$name} {
+    padding-right: $value;
+  }
+  
+  .px-#{$name} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+  
+  .py-#{$name} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+}
+
