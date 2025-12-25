@@ -120,6 +120,29 @@ const TriviaPage = () => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [nextCard, previousCard, flipCard]);
 
+  // Handle card click based on which half was clicked
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const isLeftHalf = clickX < rect.width / 2;
+
+    if (!isFlipped) {
+      // Question side: left = previous, right = flip to answer
+      if (isLeftHalf) {
+        previousCard();
+      } else {
+        flipCard();
+      }
+    } else {
+      // Answer side: left = flip back, right = next
+      if (isLeftHalf) {
+        setIsFlipped(false);
+      } else {
+        nextCard();
+      }
+    }
+  };
+
   const currentQuestion = filteredQuestions[currentIndex];
 
   return (
@@ -189,7 +212,7 @@ const TriviaPage = () => {
 
         {/* Flashcard */}
         <div
-          onClick={flipCard}
+          onClick={handleCardClick}
           className={`relative min-h-[350px] cursor-pointer rounded-2xl p-8 shadow-xl transition-all hover:-translate-y-1 md:min-h-[400px] md:p-10 ${
             isFlipped ? "bg-emerald-100" : "bg-sky-100"
           }`}
@@ -240,7 +263,9 @@ const TriviaPage = () => {
 
         {/* Flip Hint */}
         <p className="mt-4 text-center text-sm text-muted-foreground">
-          Click card or press Space to reveal answer
+          {!isFlipped
+            ? "← Previous | Click right to flip →"
+            : "← Flip back | Click right for next →"}
         </p>
 
         {/* Controls */}
