@@ -13,10 +13,9 @@
   box-sizing: border-box;
 }
 
-// Remove default margin and padding
+// Remove default margin (padding handled by Tailwind utilities)
 * {
   margin: 0;
-  padding: 0;
 }
 
 // Allow percentage-based heights in the application
