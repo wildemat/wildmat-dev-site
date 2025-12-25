@@ -1,14 +1,7 @@
-import Layout from "./components/layout/Layout";
-import PageSection from "./components/layout/PageSection";
+import AppRouter from "./lib/Router";
 
 const App = () => {
-  return (
-    <Layout>
-      <PageSection centered className="flex-1 py-16">
-        <h1>wildmat.dev</h1>
-      </PageSection>
-    </Layout>
-  );
+  return <AppRouter />;
 };
 
 export default App;
