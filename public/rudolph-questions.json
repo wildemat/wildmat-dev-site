@@ -1,0 +1,1000 @@
+{
+  "questions": [
+    {
+      "q": "What is the name of the snowman narrator?",
+      "a": "Sam (the Snowman)",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What is Rudolph's father's name?",
+      "a": "Donner",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What profession does Hermey the elf want to pursue?",
+      "a": "Dentist",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "What is the name of the prospector who befriends Rudolph?",
+      "a": "Yukon Cornelius",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "What does Yukon Cornelius ultimately discover he's been searching for?",
+      "a": "Peppermint",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What is the name of the doe who likes Rudolph?",
+      "a": "Clarice",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "What is the Abominable Snow Monster also called?",
+      "a": "Bumble",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "Who voices/sings as Sam the Snowman?",
+      "a": "Burl Ives",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does Donner use to hide Rudolph's nose?",
+      "a": "Soil/dirt and a black cap",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What is the name of the jack-in-the-box on the Island of Misfit Toys?",
+      "a": "Charlie",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does Mrs. Claus keep insisting Santa do?",
+      "a": "Eat",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "Who rules the Island of Misfit Toys?",
+      "a": "King Moonracer",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What does the Foreman Elf want Hermey to learn to do?",
+      "a": "Wiggle his ears, chuckle warmly, and go 'hee hee' and 'ho ho'",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What is Rudolph's coach's name at reindeer school?",
+      "a": "Comet",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What name does Fireball suggest the other reindeer call Rudolph?",
+      "a": "Fire Snout, Rainbow puss, Red schnoz, and Neon Nose are all used",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What does Bumble's one weakness turn out to be?",
+      "a": "He sinks in water (doesn't float)",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What song do the elves sing for Santa?",
+      "a": "We Are Santa's Elves",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What does Yukon say the fog is as thick as?",
+      "a": "Peanut butter",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "How does Hermey neutralize the Bumble?",
+      "a": "He removes all his teeth",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What excuse does Yukon give when he falls off the cliff but survives?",
+      "a": "Bumbles bounce!",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What is the main theme about being different in Rudolph?",
+      "a": "That differences can become strengths/assets, and what makes you different can make you special",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What lesson does Rudolph learn about running away from problems?",
+      "a": "That you can't run away from your troubles - you have to face them",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What does the Island of Misfit Toys represent thematically?",
+      "a": "Those who are rejected by society/don't fit conventional standards but still have value",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What is Hermey's story arc about?",
+      "a": "Following your dreams/true calling even when society says you should do something else",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "How does the special address the theme of prejudice?",
+      "a": "Through how Rudolph is excluded and mocked for being different until his difference becomes useful",
+      "difficulty": "hard",
+      "category": "themes"
+    },
+    {
+      "q": "What does Santa's initial reaction to Rudolph's nose represent?",
+      "a": "How authority figures/society can reinforce discrimination against those who are different",
+      "difficulty": "hard",
+      "category": "themes"
+    },
+    {
+      "q": "What is the significance of all the 'misfits' finding their place?",
+      "a": "That everyone has value and can contribute, even if they don't fit traditional expectations",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What lesson does Donner learn by the end?",
+      "a": "That he was wrong to be ashamed of his son's difference",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What does Clarice's song 'There's Always Tomorrow' represent?",
+      "a": "Hope and believing in someone even when others reject them",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What is the moral lesson about the misfit toys?",
+      "a": "That a toy (or person) is never truly happy until they are loved/accepted for who they are",
+      "difficulty": "hard",
+      "category": "themes"
+    },
+    {
+      "q": "What insult do the reindeer call Rudolph that sounds particularly inappropriate today?",
+      "a": "Rainbow puss",
+      "difficulty": "easy",
+      "category": "cultural"
+    },
+    {
+      "q": "What does Donner say is more important than Rudolph's comfort?",
+      "a": "Self-respect (which really means conformity/hiding who he is)",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "What problematic phrase does Donner use about hiding Rudolph's 'nonconformity'?",
+      "a": "The film frames hiding his identity as necessary for 'self-respect'",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "What does Clarice's father tell her about associating with Rudolph?",
+      "a": "That 'no doe of mine is going to be seen with a red-nosed reindeer' (essentially forbidding interracial/inter-group relationships)",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "How does the special reflect 1960s gender roles through Mrs. Donner?",
+      "a": "She wants to help search for Rudolph but Donner says 'this is man's work'",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "What does Mrs. Claus's entire character revolve around?",
+      "a": "Making Santa eat/fattening him up (her only role is feeding her husband)",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "What is problematic about how Santa initially treats Rudolph?",
+      "a": "He basically says Rudolph can't be on the team because of how he looks",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "How does Comet enforce exclusion?",
+      "a": "He explicitly tells the other reindeer 'we won't let Rudolph join in any reindeer games'",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "What does Donner's reaction to Rudolph's nose parallel in terms of social issues?",
+      "a": "Parents being ashamed of children who don't conform to social norms/trying to 'fix' or hide them",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "How does the special treat Hermey's career ambitions dismissively?",
+      "a": "Everyone mocks him for wanting to be a dentist, the Foreman says he'll 'never fit in'",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "What line does Donner say that sounds like he's taking credit for Rudolph's success despite earlier rejection?",
+      "a": "'I knew that nose would be useful someday. I knew it all along!'",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "Why is the line 'Even among misfits, you're misfits' darkly funny today?",
+      "a": "It shows that discrimination and exclusion exist even among marginalized groups",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "What is tokenism as shown at the end of Rudolph?",
+      "a": "Rudolph is only valued once his 'difference' becomes useful to the majority",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "How does the special inadvertently show ableism?",
+      "a": "The misfit toys are rejected for minor imperfections like square wheels or a different name",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "What's ironic about Santa promising to help the misfit toys?",
+      "a": "He only does so AFTER Rudolph proves useful - his change of heart is conditional",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "What toxic masculinity moment does Donner display?",
+      "a": "Telling his wife she can't come search for Rudolph because 'this is man's work'",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "How is Rudolph's acceptance conditional?",
+      "a": "He's only accepted after proving his usefulness to society/Santa",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "What does the Foreman Elf's treatment of Hermey reflect about conformity?",
+      "a": "That not conforming to expected roles is treated as shameful and grounds for exclusion",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "Why is 'you'd better go home with your folks' a cutting line?",
+      "a": "Comet immediately segregates Rudolph from the other children after his nose is revealed",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "What song lyric do the fawns taunt Rudolph with?",
+      "a": "'Rudolph the Red-Nosed Reindeer' - using his own name/identity as an insult",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "What does Hermey do to the dolls that angers his boss?",
+      "a": "Fixes their teeth",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "What type of animal is King Moonracer?",
+      "a": "A winged lion",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What does Fireball call the young female reindeer?",
+      "a": "Does",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "What name is Rudolph's friend who first greets him at reindeer school?",
+      "a": "Fireball",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "How does Yukon test where he's searching?",
+      "a": "He throws his pickaxe, then licks and sniffs it",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What does Clarice say to Rudolph that makes him fly the first time?",
+      "a": "'I think you're cute'",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "What job does Bumble get at the end?",
+      "a": "Putting stars on top of Christmas trees",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What is the Foreman Elf's main concern?",
+      "a": "Making toys and having elves conform to their expected roles",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "How does Sam describe himself?",
+      "a": "A talking snowman (wearing a waistcoat, bowler hat, and carrying an umbrella)",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What does Santa say is his reaction to Rudolph's nose at first?",
+      "a": "'Great bouncing icebergs!' and expresses concern about him making the sleigh team",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What supplies does Yukon list that he needs to get?",
+      "a": "Cornmeal, gunpowder, ham hocks, and guitar strings",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What does Donner call Rudolph's nose?",
+      "a": "A 'beak' that 'blinks like a blinking beacon'",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "How long had Rudolph's parents been searching for him according to Santa?",
+      "a": "Months",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "How many reindeer pull Santa's sleigh traditionally?",
+      "a": "Eight",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What does the water pistol misfit toy shoot?",
+      "a": "Jelly (grape jelly)",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What bird claims to swim instead of fly?",
+      "a": "The misfit bird on the Island of Misfit Toys",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does the train on the Island of Misfit Toys have wrong with it?",
+      "a": "Square wheels on its caboose",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does the cowboy misfit toy ride?",
+      "a": "An ostrich",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does the spotted elephant ask?",
+      "a": "'How would you like to be a spotted elephant?'",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What is the boat's problem on the Island of Misfit Toys?",
+      "a": "It can't stay afloat",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does the song 'We're a Couple of Misfits' represent?",
+      "a": "Finding solidarity with others who don't fit in",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What is the significance of Rudolph leaving his friends on the Island?",
+      "a": "He thinks he's protecting them, showing self-sacrifice but also isolation",
+      "difficulty": "hard",
+      "category": "themes"
+    },
+    {
+      "q": "Why does King Moonracer save misfit toys?",
+      "a": "Because he believes they deserve love and a home despite being different",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What does Hermey and Rudolph's friendship represent?",
+      "a": "Alliance between different types of outcasts/marginalized individuals",
+      "difficulty": "hard",
+      "category": "themes"
+    },
+    {
+      "q": "What lesson is there in how the community changes toward Rudolph?",
+      "a": "That acceptance shouldn't be conditional on usefulness, though the special somewhat undercuts this",
+      "difficulty": "hard",
+      "category": "themes"
+    },
+    {
+      "q": "What does Rudolph returning home represent?",
+      "a": "That you can't escape who you are, and facing your problems is necessary",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What is symbolic about Rudolph's nose lighting the way?",
+      "a": "That our differences can illuminate paths for others/guide people through darkness",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "Why is it significant that Hermey becomes a dentist at the end?",
+      "a": "It shows you can achieve your dreams even when society tells you it's wrong/impossible",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What does the storm on Christmas Eve represent?",
+      "a": "A crisis that requires an unconventional solution/different perspective",
+      "difficulty": "hard",
+      "category": "themes"
+    },
+    {
+      "q": "What message is in the misfit toys getting homes?",
+      "a": "That everyone deserves to be wanted and loved for who they are",
+      "difficulty": "medium",
+      "category": "themes"
+    },
+    {
+      "q": "What's problematic about everyone loving Rudolph only after he guides the sleigh?",
+      "a": "It suggests acceptance is earned through utility rather than being an inherent right",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "How does the special treat body shaming?",
+      "a": "Mrs. Claus insists Santa must be fat, saying 'whoever heard of a skinny Santa'",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "What sexist trope does Clarice represent?",
+      "a": "The supportive female who believes in the male hero when no one else does",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "Why is the Foreman Elf's dismissal of dentistry as a career problematic?",
+      "a": "It enforces rigid social roles and dismisses individual aspirations",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "What does 'nonconformity' being treated as something to hide say about 1960s values?",
+      "a": "That conformity was highly valued and differences should be concealed",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "How does peer pressure work in the reindeer games scene?",
+      "a": "All the fawns immediately turn on Rudolph when his difference is revealed, showing mob mentality",
+      "difficulty": "medium",
+      "category": "cultural"
+    },
+    {
+      "q": "What's ironic about Santa criticizing Donner for Rudolph's nose?",
+      "a": "Santa himself had just expressed the same prejudice moments before",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "Why is Hermey's 'independence' speech both progressive and sad?",
+      "a": "He has to declare independence because he's rejected for his aspirations",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "What does the special say about physical differences and employment?",
+      "a": "That Rudolph can only join the 'sleigh team' if his difference is hidden or useful",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "How does the special inadvertently critique capitalism?",
+      "a": "Toys and individuals are only valued based on their utility/function",
+      "difficulty": "hard",
+      "category": "cultural"
+    },
+    {
+      "q": "Complete Santa's song: 'Jingle, jingle, jingle, you will hear my sleigh bells ring...'",
+      "a": "'I am old Kris Kringle, I'm the king of jingle-ing'",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does Hermey sing about being a misfit?",
+      "a": "'Why am I such a misfit? I am not just a nitwit. You can't fire me, I quit! Seems I don't fit in.'",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What is Sam's opening line about the snowstorm?",
+      "a": "Talking about a big snowstorm from a couple years ago when 'the world almost missed Christmas'",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does Yukon yell when he's excited?",
+      "a": "'Wahoo!'",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What does the doll on the Island of Misfit Toys say?",
+      "a": "'How do you do?'",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What song does Clarice sing to comfort Rudolph?",
+      "a": "'There's Always Tomorrow'",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What classic Christmas song is playing during the ending montage?",
+      "a": "'Have a Holly Jolly Christmas'",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What are the names of all eight original reindeer mentioned?",
+      "a": "Dasher, Dancer, Prancer, Vixen, Comet, Cupid, Donner, and Blitzen",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does Santa ask Rudolph at the climax?",
+      "a": "'Rudolph, with your nose so bright, won't you guide my sleigh tonight?'",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What is Santa's final line in the special?",
+      "a": "'Merry Christmas! MERRRRY Christmas!'",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What does Sam call Christmastown?",
+      "a": "Better known as the North Pole",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does Sam say about Christmas seals?",
+      "a": "They're seals playing with Christmas presents",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What month is it when the new fawns meet Santa?",
+      "a": "April",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What game are the young reindeer learning?",
+      "a": "'Takeoff' - learning to fly",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does the elf wear near Rudolph's nose at the end?",
+      "a": "Sunglasses",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "How do the misfit toys safely get to earth?",
+      "a": "With umbrellas (an elf drops them with umbrellas)",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does Mrs. Claus want to check before Santa leaves?",
+      "a": "She tells him to turn around so she can check his suit",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What is the first stop on Santa's route?",
+      "a": "The Island of Misfit Toys",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What instrument does Sam play?",
+      "a": "A banjo",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does Yukon initially think he's searching for before changing his mind?",
+      "a": "Gold (then switches to silver, then finds peppermint)",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "Why does Hermey want to be a dentist?",
+      "a": "He finds it fascinating and thinks they need one at the North Pole",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "Why does Rudolph leave the Island of Misfit Toys alone?",
+      "a": "He thinks his glowing nose will endanger his friends",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "Why does Donner feel he needs to hide Rudolph's nose?",
+      "a": "He's ashamed and thinks Rudolph won't be accepted/make the sleigh team",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "Why does Clarice defy her father?",
+      "a": "She believes in Rudolph despite his difference",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What motivates King Moonracer to help misfit toys?",
+      "a": "Compassion and belief that every toy deserves to be loved by a child",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "Why does Yukon help Rudolph and Hermey?",
+      "a": "He's friendly and wants them to help him find silver (and companionship)",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What changes Santa's mind about Rudolph?",
+      "a": "Realizing his nose can help navigate through the storm",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "Why do Rudolph's parents and Clarice go searching for him?",
+      "a": "Love and concern for his safety",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "What makes Hermey finally quit his job?",
+      "a": "The Foreman telling him he'll never fit in and demanding conformity",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "Why does Bumble want a job at the end?",
+      "a": "He's been reformed and wants to be useful/contribute",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What time of year was Rudolph born?",
+      "a": "Springtime",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "How long before the big snowstorm did Rudolph's story begin?",
+      "a": "A couple of years",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "When is Christmas Eve in the special?",
+      "a": "The night of the 24th",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "How many days before Christmas Eve does the big storm hit?",
+      "a": "Two days",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What appointment time does Hermey set for the Foreman Elf?",
+      "a": "Week from Tuesday, 4:30 sharp",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What season is it when the young fawns meet for reindeer games?",
+      "a": "April (spring)",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "How long for did Donner successfully hide Rudolph's nose?",
+      "a": "For the first year",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "How long had Rudolph been gone when he returns home?",
+      "a": "Months (his parents had been searching for months)",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What is Rudolph's mother's name?",
+      "a": "Mrs. Donner",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What is Santa's wife called throughout the special?",
+      "a": "Mrs. Claus or 'Mama'",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "Who is Dasher's little boy at reindeer practice?",
+      "a": "The first young fawn who tries takeoff (not named)",
+      "difficulty": "hard",
+      "category": "characters"
+    },
+    {
+      "q": "What is the full name/title of Yukon?",
+      "a": "Yukon Cornelius, 'the greatest prospector in the North'",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What specific reindeer is the coach at reindeer school?",
+      "a": "Comet",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What is the Abominable Snow Monster's full title?",
+      "a": "The Abominable Snow Monster of the North",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What officer position does Charlie hold?",
+      "a": "Official sentry of the Island of Misfit Toys",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What type of elf delivers the weather report to Santa?",
+      "a": "Aviator Elf",
+      "difficulty": "hard",
+      "category": "characters"
+    },
+    {
+      "q": "What is the formal title of the lion on the Island?",
+      "a": "King Moonracer",
+      "difficulty": "easy",
+      "category": "characters"
+    },
+    {
+      "q": "What role does the Foreman Elf have?",
+      "a": "He oversees toy production and elf practice/choir",
+      "difficulty": "medium",
+      "category": "characters"
+    },
+    {
+      "q": "What does Sam call the North Pole area?",
+      "a": "Christmastown",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What specific forest is shown at the beginning?",
+      "a": "The Christmas Tree Forest",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "Where do the Clauses live?",
+      "a": "First castle on the left (the only castle on the left)",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What is the island with misfit toys called?",
+      "a": "Island of Misfit Toys (also called Island of Unwanted Toys)",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What geographic region does Yukon claim as his land?",
+      "a": "The North/North Pole region",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What bay does Yukon reference for his silver strike?",
+      "a": "Hudson Bay ('this side of Hudson Bay')",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "Where does Bumble live?",
+      "a": "In a cave (the cave of the Abominable Snow Monster)",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "Where do the Donner family live?",
+      "a": "In a cave",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What types of teeth does Hermey mention studying?",
+      "a": "Molars, bicuspids, and incisors",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What specific toys does the Foreman say they make?",
+      "a": "Dolls that cry, talk, walk, blink, and run a temperature",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "How many dogs pull Yukon's sled?",
+      "a": "Five dogs",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What color is the jack-in-the-box that Charlie pops out of?",
+      "a": "Purple",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What color is the spotted elephant?",
+      "a": "Pink with purple spots (or blue/pink - it's a pink/light colored elephant with spots)",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What color is the misfit bird?",
+      "a": "Not specified, but it swims instead of flies",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What is the nesting toy that opens to reveal smaller toys?",
+      "a": "Nesting clowns (that end with a wind-up mouse instead)",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What color is the bear with wings on the Island?",
+      "a": "Blue",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What is Sam wearing?",
+      "a": "A waistcoat, bowler hat, and carrying an umbrella",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does the song say decorations are made of?",
+      "a": "Silver and gold",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What does Mrs. Donner say when she first sees Rudolph's nose?",
+      "a": "'Well, we'll simply have to overlook it'",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What does Santa say when he first sees Rudolph's glowing nose?",
+      "a": "'Great bouncing icebergs!'",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What phrase does Donner use to describe what Rudolph will be?",
+      "a": "'A chip off the old antlers'",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does King Moonracer say about living creatures vs toys?",
+      "a": "'Unlike playthings, a living creature cannot hide himself on an island'",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What does the misfit doll say she has no more of?",
+      "a": "'I haven't any dreams left to dream'",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What does Yukon say about the bumble after falling off the cliff?",
+      "a": "'Didn't I ever tell you about Bumbles? Bumbles bounce!'",
+      "difficulty": "easy",
+      "category": "script"
+    },
+    {
+      "q": "What does Charlie say about his name problem?",
+      "a": "'No child wants to play with a Charlie-in-the-box'",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What does Sam say about Rudolph growing up?",
+      "a": "'Rudolph was growing up, and growing up made Rudolph realize that you can't run away from your troubles'",
+      "difficulty": "hard",
+      "category": "script"
+    },
+    {
+      "q": "What does the Foreman Elf say when dismissing Hermey's dentistry aspirations?",
+      "a": "'A dentist! Good grief!'",
+      "difficulty": "medium",
+      "category": "script"
+    },
+    {
+      "q": "What is King Moonracer's philosophy about toys?",
+      "a": "'A toy is never truly happy until it is loved by a child'",
+      "difficulty": "medium",
+      "category": "script"
+    }
+  ]
+}

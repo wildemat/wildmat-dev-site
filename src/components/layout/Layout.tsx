@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Outlet } from "react-router-dom";
+import Header from "./Header";
 import Footer from "./Footer";
 
 interface LayoutProps {
@@ -9,6 +10,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="flex min-h-screen flex-col">
+      <Header />
       <main className="flex flex-1 flex-col">
         {children ?? <Outlet />}
       </main>
