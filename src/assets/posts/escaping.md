@@ -50,7 +50,7 @@ That leaves me with some real questions:
 2. How do I build trust in myself that I can lead an exciting life with shiny objects even after filtering all the "things" through a strong prioritization standard?
 3. How do I get help from others and stay accountable?
 
-An important caveat here: I'm aware and grateful that the only reason I have the headspace and peace of mind to ponder and come to such realizations is through the help of God, my family and the access to good people and resources around me that I trust. I'm know many people share these and other, worse struggles. They might have no possible way, or idea, of where to start.
+An important caveat here: I'm aware and grateful that the only reason I have the headspace and peace of mind to ponder and come to such realizations is through the help of God, my family and the access to good people and resources around me that I trust. I know many people share these and other, worse struggles. They might have no possible way, or idea, of where to start.
 
 As for my case, I think I'm ready to finally say "NO" to a lot of this "good" noise, because it's brought me to the realization that too much of anything "good", is not giving me the results I truly desire.
 
