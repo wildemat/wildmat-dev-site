@@ -4,11 +4,12 @@ export interface RouteConfig {
   path: string;
   label: string;
   element: React.LazyExoticComponent<React.ComponentType> | React.ComponentType;
+  hidden?: boolean;
 }
 
-// Lazy load pages for better performance
 const HomePage = lazy(() => import("@/pages/Home"));
-const TriviaPage = lazy(() => import("@/pages/Trivia"));
+const BlogPage = lazy(() => import("@/pages/Blog"));
+const BlogPostPage = lazy(() => import("@/pages/BlogPost"));
 
 export const routes: RouteConfig[] = [
   {
@@ -17,19 +18,23 @@ export const routes: RouteConfig[] = [
     element: HomePage,
   },
   {
-    path: "/trivia",
-    label: "Trivia",
-    element: TriviaPage,
+    path: "/blog",
+    label: "Blog",
+    element: BlogPage,
+  },
+  {
+    path: "/blog/:slug",
+    label: "Blog Post",
+    element: BlogPostPage,
+    hidden: true,
   },
 ];
 
-// Get navigation links sorted alphabetically (excluding home which stays first)
 export const getNavLinks = () => {
   const home = routes.find((r) => r.path === "/");
   const others = routes
-    .filter((r) => r.path !== "/")
+    .filter((r) => r.path !== "/" && !r.hidden)
     .sort((a, b) => a.label.localeCompare(b.label));
-  
+
   return home ? [home, ...others] : others;
 };
-

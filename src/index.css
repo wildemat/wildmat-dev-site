@@ -1,5 +1,6 @@
 /* Tailwind CSS imports */
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* shadcn/ui CSS variables */
 :root {
