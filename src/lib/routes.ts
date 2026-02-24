@@ -1,3 +1,4 @@
+import TestPage from "@/pages/TestPage";
 import { lazy } from "react";
 
 export interface RouteConfig {
@@ -26,6 +27,12 @@ export const routes: RouteConfig[] = [
     path: "/blog/:slug",
     label: "Blog Post",
     element: BlogPostPage,
+    hidden: true,
+  },
+  {
+    path: "/test",
+    label: "Test",
+    element: TestPage,
     hidden: true,
   },
 ];
