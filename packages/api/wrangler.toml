@@ -19,5 +19,5 @@ persist = true
 head_sampling_rate = 1
 
 [[routes]]
-pattern = "wildmat.dev/api/*"
+pattern = "api.wildmat.dev/*"
 zone_name = "wildmat.dev"

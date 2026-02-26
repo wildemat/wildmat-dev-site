@@ -3123,17 +3123,20 @@ feedback.get("/", (c) => {
 });
 
 // src/index.ts
-var ALLOWED_IP = "136.57.91.121";
-var app = new Hono2().basePath("/api");
+var ALLOWED_IPS = /* @__PURE__ */ new Set([
+  "136.57.91.121",
+  "2605:a601:90b6:3a00:192d:2818:4b0e:3c5d"
+]);
+var app = new Hono2();
 app.use("*", async (c, next) => {
   const clientIp = c.req.header("cf-connecting-ip") || c.req.header("x-forwarded-for");
-  if (clientIp !== ALLOWED_IP) {
+  if (!clientIp || !ALLOWED_IPS.has(clientIp)) {
     return c.json({ error: "forbidden" }, 403);
   }
   await next();
 });
 app.use("*", cors({
-  origin: `http://${ALLOWED_IP}`
+  origin: "*"
 }));
 app.route("/health", health);
 app.route("/feedback", feedback);
@@ -3180,7 +3183,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env2, _ctx, middlewareCtx
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-0FWICL/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-zesfNk/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -3212,7 +3215,7 @@ function __facade_invoke__(request, env2, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-0FWICL/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-zesfNk/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

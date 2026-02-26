@@ -3,20 +3,23 @@ import { cors } from 'hono/cors';
 import { health } from './routes/health.js';
 import { feedback } from './routes/feedback.js';
 
-const ALLOWED_IP = '136.57.91.121';
+const ALLOWED_IPS = new Set([
+  '136.57.91.121',
+  '2605:a601:90b6:3a00:192d:2818:4b0e:3c5d',
+]);
 
-const app = new Hono().basePath('/api');
+const app = new Hono();
 
 app.use('*', async (c, next) => {
   const clientIp = c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for');
-  if (clientIp !== ALLOWED_IP) {
+  if (!clientIp || !ALLOWED_IPS.has(clientIp)) {
     return c.json({ error: 'forbidden' }, 403);
   }
   await next();
 });
 
 app.use('*', cors({
-  origin: `http://${ALLOWED_IP}`,
+  origin: '*',
 }));
 
 app.route('/health', health);
