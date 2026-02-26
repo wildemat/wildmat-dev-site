@@ -17,19 +17,29 @@ function isAllowed(ip: string): boolean {
   return ALLOWED_IPV6_PREFIXES.some((prefix) => ip.startsWith(prefix));
 }
 
-const app = new Hono();
+type Bindings = {
+  FITNESS_METRICS: KVNamespace;
+  FITNESS_API_KEY: string;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
 
 app.use('*', async (c, next) => {
   const clientIp = c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for');
   if (!clientIp) {
-    // No CF header means local dev — allow through
     await next();
     return;
   }
-  if (!isAllowed(clientIp)) {
-    return c.json({ error: 'forbidden' }, 403);
+  if (isAllowed(clientIp)) {
+    await next();
+    return;
   }
-  await next();
+  const apiKey = c.req.header('x-api-key');
+  if (apiKey && apiKey === c.env.FITNESS_API_KEY) {
+    await next();
+    return;
+  }
+  return c.json({ error: 'forbidden' }, 403);
 });
 
 app.use('*', cors({

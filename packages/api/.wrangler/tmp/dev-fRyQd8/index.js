@@ -3324,10 +3324,16 @@ app.use("*", async (c, next) => {
     await next();
     return;
   }
-  if (!isAllowed(clientIp)) {
-    return c.json({ error: "forbidden" }, 403);
+  if (isAllowed(clientIp)) {
+    await next();
+    return;
   }
-  await next();
+  const apiKey = c.req.header("x-api-key");
+  if (apiKey && apiKey === c.env.FITNESS_API_KEY) {
+    await next();
+    return;
+  }
+  return c.json({ error: "forbidden" }, 403);
 });
 app.use("*", cors({
   origin: "*"
