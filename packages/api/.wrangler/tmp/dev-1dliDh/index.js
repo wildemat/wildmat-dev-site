@@ -3273,38 +3273,20 @@ var streamSSE = /* @__PURE__ */ __name((c, cb, onError) => {
 }, "streamSSE");
 
 // src/routes/fitness.ts
+var KV_KEY = "latest";
 var fitness = new Hono2();
-var listeners2 = /* @__PURE__ */ new Set();
 fitness.get("/events", (c) => {
   return streamSSE(c, async (stream2) => {
-    const pending = [];
-    let notify = null;
-    const listener = /* @__PURE__ */ __name((payload) => {
-      pending.push(payload);
-      notify?.();
-    }, "listener");
-    listeners2.add(listener);
-    stream2.onAbort(() => {
-      listeners2.delete(listener);
-    });
+    let lastSeen = "";
     while (true) {
-      while (pending.length > 0) {
-        await stream2.writeSSE({
-          event: "metrics",
-          data: JSON.stringify(pending.shift()),
-          retry: 3e3
-        });
-      }
-      await Promise.race([
-        new Promise((resolve) => {
-          notify = resolve;
-        }),
-        stream2.sleep(15e3)
-      ]);
-      notify = null;
-      if (pending.length === 0) {
+      const raw2 = await c.env.FITNESS_METRICS.get(KV_KEY);
+      if (raw2 && raw2 !== lastSeen) {
+        lastSeen = raw2;
+        await stream2.writeSSE({ event: "metrics", data: raw2 });
+      } else {
         await stream2.writeSSE({ event: "ping", data: "" });
       }
+      await stream2.sleep(2e3);
     }
   });
 });
@@ -3315,14 +3297,11 @@ fitness.post("/", async (c) => {
   } catch {
     return c.json({ error: "invalid JSON" }, 400);
   }
-  console.log("[fitness]", JSON.stringify(body));
-  for (const fn of listeners2) {
-    try {
-      fn(body);
-    } catch {
-      listeners2.delete(fn);
-    }
-  }
+  const payload = { ...body, _ts: Date.now() };
+  await c.env.FITNESS_METRICS.put(KV_KEY, JSON.stringify(payload), {
+    expirationTtl: 3600
+  });
+  console.log("[fitness]", JSON.stringify(payload));
   return c.json({ ok: true });
 });
 
@@ -3399,7 +3378,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env2, _ctx, middlewareCtx
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-aUZZrX/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-jjO8B2/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -3431,7 +3410,7 @@ function __facade_invoke__(request, env2, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-aUZZrX/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-jjO8B2/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

@@ -1,44 +1,29 @@
 import { Hono } from 'hono';
 import { streamSSE } from 'hono/streaming';
 
-export const fitness = new Hono();
+type Bindings = {
+  FITNESS_METRICS: KVNamespace;
+};
 
-// In-memory pub/sub shared within a single Worker isolate.
-// Isolate recycling may drop SSE connections — fine for personal use.
-type Listener = (payload: Record<string, unknown>) => void;
-const listeners = new Set<Listener>();
+const KV_KEY = 'latest';
+
+export const fitness = new Hono<{ Bindings: Bindings }>();
 
 fitness.get('/events', (c) => {
   return streamSSE(c, async (stream) => {
-    const pending: Record<string, unknown>[] = [];
-    let notify: (() => void) | null = null;
-
-    const listener: Listener = (payload) => {
-      pending.push(payload);
-      notify?.();
-    };
-
-    listeners.add(listener);
-    stream.onAbort(() => { listeners.delete(listener); });
+    let lastSeen = '';
 
     while (true) {
-      while (pending.length > 0) {
-        await stream.writeSSE({
-          event: 'metrics',
-          data: JSON.stringify(pending.shift()),
-          retry: 3000,
-        });
-      }
+      const raw = await c.env.FITNESS_METRICS.get(KV_KEY);
 
-      await Promise.race([
-        new Promise<void>((resolve) => { notify = resolve; }),
-        stream.sleep(15_000),
-      ]);
-      notify = null;
-
-      if (pending.length === 0) {
+      if (raw && raw !== lastSeen) {
+        lastSeen = raw;
+        await stream.writeSSE({ event: 'metrics', data: raw });
+      } else {
         await stream.writeSSE({ event: 'ping', data: '' });
       }
+
+      await stream.sleep(2000);
     }
   });
 });
@@ -51,15 +36,11 @@ fitness.post('/', async (c) => {
     return c.json({ error: 'invalid JSON' }, 400);
   }
 
-  console.log('[fitness]', JSON.stringify(body));
+  const payload = { ...body, _ts: Date.now() };
+  await c.env.FITNESS_METRICS.put(KV_KEY, JSON.stringify(payload), {
+    expirationTtl: 3600,
+  });
 
-  for (const fn of listeners) {
-    try {
-      fn(body);
-    } catch {
-      listeners.delete(fn);
-    }
-  }
-
+  console.log('[fitness]', JSON.stringify(payload));
   return c.json({ ok: true });
 });

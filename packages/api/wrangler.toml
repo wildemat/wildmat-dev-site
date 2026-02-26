@@ -18,6 +18,10 @@ enabled = false
 persist = true
 head_sampling_rate = 1
 
+[[kv_namespaces]]
+binding = "FITNESS_METRICS"
+id = "64a186bce8bc47f1bfd10e5ca57832c4"
+
 [[routes]]
 pattern = "api.wildmat.dev/*"
 zone_name = "wildmat.dev"
