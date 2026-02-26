@@ -1,19 +1,25 @@
-import express from 'express';
-import cors from 'cors';
-import { healthRouter } from './routes/health.js';
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+import { health } from './routes/health.js';
+import { feedback } from './routes/feedback.js';
 
-const app = express();
-const port = process.env.PORT || 3001;
+const ALLOWED_IP = '136.57.91.121';
 
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-}));
-app.use(express.json());
+const app = new Hono().basePath('/api');
 
-app.use('/api/health', healthRouter);
-
-app.listen(port, () => {
-  console.log(`API server running on http://localhost:${port}`);
+app.use('*', async (c, next) => {
+  const clientIp = c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for');
+  if (clientIp !== ALLOWED_IP) {
+    return c.json({ error: 'forbidden' }, 403);
+  }
+  await next();
 });
+
+app.use('*', cors({
+  origin: `http://${ALLOWED_IP}`,
+}));
+
+app.route('/health', health);
+app.route('/feedback', feedback);
 
 export default app;

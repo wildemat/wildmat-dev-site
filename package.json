@@ -15,6 +15,7 @@
     "build:web": "npm run build -w @wildmat/web",
     "build:api": "npm run build -w @wildmat/api",
     "build": "npm run build:api && npm run build:web",
+    "deploy:api": "npm run deploy -w @wildmat/api",
     "lint": "npm run lint --workspaces --if-present"
   }
 }
