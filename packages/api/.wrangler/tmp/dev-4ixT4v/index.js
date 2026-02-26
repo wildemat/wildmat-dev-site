@@ -3122,6 +3122,210 @@ feedback.get("/", (c) => {
   });
 });
 
+// ../../node_modules/hono/dist/utils/stream.js
+var StreamingApi = class {
+  static {
+    __name(this, "StreamingApi");
+  }
+  writer;
+  encoder;
+  writable;
+  abortSubscribers = [];
+  responseReadable;
+  /**
+   * Whether the stream has been aborted.
+   */
+  aborted = false;
+  /**
+   * Whether the stream has been closed normally.
+   */
+  closed = false;
+  constructor(writable, _readable) {
+    this.writable = writable;
+    this.writer = writable.getWriter();
+    this.encoder = new TextEncoder();
+    const reader = _readable.getReader();
+    this.abortSubscribers.push(async () => {
+      await reader.cancel();
+    });
+    this.responseReadable = new ReadableStream({
+      async pull(controller) {
+        const { done, value } = await reader.read();
+        done ? controller.close() : controller.enqueue(value);
+      },
+      cancel: /* @__PURE__ */ __name(() => {
+        this.abort();
+      }, "cancel")
+    });
+  }
+  async write(input) {
+    try {
+      if (typeof input === "string") {
+        input = this.encoder.encode(input);
+      }
+      await this.writer.write(input);
+    } catch {
+    }
+    return this;
+  }
+  async writeln(input) {
+    await this.write(input + "\n");
+    return this;
+  }
+  sleep(ms) {
+    return new Promise((res) => setTimeout(res, ms));
+  }
+  async close() {
+    try {
+      await this.writer.close();
+    } catch {
+    }
+    this.closed = true;
+  }
+  async pipe(body) {
+    this.writer.releaseLock();
+    await body.pipeTo(this.writable, { preventClose: true });
+    this.writer = this.writable.getWriter();
+  }
+  onAbort(listener) {
+    this.abortSubscribers.push(listener);
+  }
+  /**
+   * Abort the stream.
+   * You can call this method when stream is aborted by external event.
+   */
+  abort() {
+    if (!this.aborted) {
+      this.aborted = true;
+      this.abortSubscribers.forEach((subscriber) => subscriber());
+    }
+  }
+};
+
+// ../../node_modules/hono/dist/helper/streaming/utils.js
+var isOldBunVersion = /* @__PURE__ */ __name(() => {
+  const version2 = typeof Bun !== "undefined" ? Bun.version : void 0;
+  if (version2 === void 0) {
+    return false;
+  }
+  const result = version2.startsWith("1.1") || version2.startsWith("1.0") || version2.startsWith("0.");
+  isOldBunVersion = /* @__PURE__ */ __name(() => result, "isOldBunVersion");
+  return result;
+}, "isOldBunVersion");
+
+// ../../node_modules/hono/dist/helper/streaming/sse.js
+var SSEStreamingApi = class extends StreamingApi {
+  static {
+    __name(this, "SSEStreamingApi");
+  }
+  constructor(writable, readable) {
+    super(writable, readable);
+  }
+  async writeSSE(message) {
+    const data = await resolveCallback(message.data, HtmlEscapedCallbackPhase.Stringify, false, {});
+    const dataLines = data.split(/\r\n|\r|\n/).map((line) => {
+      return `data: ${line}`;
+    }).join("\n");
+    const sseData = [
+      message.event && `event: ${message.event}`,
+      dataLines,
+      message.id && `id: ${message.id}`,
+      message.retry && `retry: ${message.retry}`
+    ].filter(Boolean).join("\n") + "\n\n";
+    await this.write(sseData);
+  }
+};
+var run = /* @__PURE__ */ __name(async (stream2, cb, onError) => {
+  try {
+    await cb(stream2);
+  } catch (e) {
+    if (e instanceof Error && onError) {
+      await onError(e, stream2);
+      await stream2.writeSSE({
+        event: "error",
+        data: e.message
+      });
+    } else {
+      console.error(e);
+    }
+  } finally {
+    stream2.close();
+  }
+}, "run");
+var contextStash = /* @__PURE__ */ new WeakMap();
+var streamSSE = /* @__PURE__ */ __name((c, cb, onError) => {
+  const { readable, writable } = new TransformStream();
+  const stream2 = new SSEStreamingApi(writable, readable);
+  if (isOldBunVersion()) {
+    c.req.raw.signal.addEventListener("abort", () => {
+      if (!stream2.closed) {
+        stream2.abort();
+      }
+    });
+  }
+  contextStash.set(stream2.responseReadable, c);
+  c.header("Transfer-Encoding", "chunked");
+  c.header("Content-Type", "text/event-stream");
+  c.header("Cache-Control", "no-cache");
+  c.header("Connection", "keep-alive");
+  run(stream2, cb, onError);
+  return c.newResponse(stream2.responseReadable);
+}, "streamSSE");
+
+// src/routes/fitness.ts
+var fitness = new Hono2();
+var listeners2 = /* @__PURE__ */ new Set();
+fitness.get("/events", (c) => {
+  return streamSSE(c, async (stream2) => {
+    const pending = [];
+    let notify = null;
+    const listener = /* @__PURE__ */ __name((payload) => {
+      pending.push(payload);
+      notify?.();
+    }, "listener");
+    listeners2.add(listener);
+    stream2.onAbort(() => {
+      listeners2.delete(listener);
+    });
+    while (true) {
+      while (pending.length > 0) {
+        await stream2.writeSSE({
+          event: "metrics",
+          data: JSON.stringify(pending.shift()),
+          retry: 3e3
+        });
+      }
+      await Promise.race([
+        new Promise((resolve) => {
+          notify = resolve;
+        }),
+        stream2.sleep(15e3)
+      ]);
+      notify = null;
+      if (pending.length === 0) {
+        await stream2.writeSSE({ event: "ping", data: "" });
+      }
+    }
+  });
+});
+fitness.post("/", async (c) => {
+  let body;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: "invalid JSON" }, 400);
+  }
+  console.log("[fitness]", JSON.stringify(body));
+  for (const fn of listeners2) {
+    try {
+      fn(body);
+    } catch {
+      listeners2.delete(fn);
+    }
+  }
+  return c.json({ ok: true });
+});
+
 // src/index.ts
 var ALLOWED_IPS = /* @__PURE__ */ new Set([
   "136.57.91.121",
@@ -3140,6 +3344,7 @@ app.use("*", cors({
 }));
 app.route("/health", health);
 app.route("/feedback", feedback);
+app.route("/fitness", fitness);
 var src_default = app;
 
 // ../../node_modules/wrangler/templates/middleware/middleware-ensure-req-body-drained.ts
