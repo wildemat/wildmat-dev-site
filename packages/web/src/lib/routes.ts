@@ -11,6 +11,9 @@ export interface RouteConfig {
 const HomePage = lazy(() => import("@/pages/Home"));
 const BlogPage = lazy(() => import("@/pages/Blog"));
 const BlogPostPage = lazy(() => import("@/pages/BlogPost"));
+const SmsTermsPage = lazy(() => import("@/pages/handshaker/SmsTerms"));
+const PrivacyPolicyPage = lazy(() => import("@/pages/handshaker/PrivacyPolicy"));
+const SmsConsentPage = lazy(() => import("@/pages/handshaker/SmsConsent"));
 
 export const routes: RouteConfig[] = [
   {
@@ -33,6 +36,24 @@ export const routes: RouteConfig[] = [
     path: "/test",
     label: "Test",
     element: TestPage,
+    hidden: true,
+  },
+  {
+    path: "/handshaker/sms-terms",
+    label: "SMS Terms of Service",
+    element: SmsTermsPage,
+    hidden: true,
+  },
+  {
+    path: "/handshaker/privacy",
+    label: "Privacy Policy",
+    element: PrivacyPolicyPage,
+    hidden: true,
+  },
+  {
+    path: "/handshaker/sms-consent",
+    label: "SMS Consent",
+    element: SmsConsentPage,
     hidden: true,
   },
 ];
