@@ -1,0 +1,8 @@
+name = "wildmat-gateway"
+main = "src/index.ts"
+compatibility_date = "2025-02-12"
+compatibility_flags = ["nodejs_compat"]
+
+[[routes]]
+pattern = "*.wildmat.dev/*"
+zone_name = "wildmat.dev"
