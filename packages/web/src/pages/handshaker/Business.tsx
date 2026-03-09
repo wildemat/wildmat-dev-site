@@ -8,14 +8,15 @@ const BusinessPage = () => {
   return (
     <PageSection className="max-w-2xl mx-auto py-12">
       <article className="prose prose-neutral dark:prose-invert max-w-none">
-        <h1>Business Information</h1>
+        <h1>WILDMAT DEV</h1>
 
         <h2>About</h2>
         <p>
           Matt Wilde is a software engineer operating as a{" "}
           <strong>sole proprietor</strong> based in Charlotte, North Carolina.
           This website and its associated services — including{" "}
-          <strong>Handshaker</strong> — are owned and operated by Matt Wilde.
+          <strong>Handshaker</strong> — are owned and operated by Matt Wilde,
+          CEO of WILDMAT DEV.
         </p>
 
         <h2>Services</h2>
