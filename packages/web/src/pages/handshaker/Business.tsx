@@ -42,23 +42,31 @@ const BusinessPage = () => {
         <table>
           <tbody>
             <tr>
-              <td><strong>Name</strong></td>
+              <td>
+                <strong>Name</strong>
+              </td>
               <td>Matt Wilde</td>
             </tr>
             <tr>
-              <td><strong>Email</strong></td>
               <td>
-                <a href="mailto:hello@wildmat.dev">hello@wildmat.dev</a>
+                <strong>Email</strong>
+              </td>
+              <td>
+                <a href="mailto:business@wildmat.dev">business@wildmat.dev</a>
               </td>
             </tr>
             <tr>
-              <td><strong>Phone</strong></td>
+              <td>
+                <strong>Phone</strong>
+              </td>
               <td>
                 <a href="tel:+18083532794">(808) 353-2794</a>
               </td>
             </tr>
             <tr>
-              <td><strong>Website</strong></td>
+              <td>
+                <strong>Website</strong>
+              </td>
               <td>
                 <a
                   href="https://wildmat.dev"
