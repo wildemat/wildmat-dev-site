@@ -15,16 +15,16 @@ const SmsTermsPage = () => {
 
         <h2>Program Name</h2>
         <p>
-          Handshaker Notifications — operated by Matt Wilde
-          (wildmat.dev).
+          Wildmat Dev SMS Notifications — operated by Wildmat Dev, a sole
+          proprietorship owned by Matt Wilde (wildmat.dev).
         </p>
 
         <h2>Program Description</h2>
         <p>
-          Handshaker is a transactional notification service that sends SMS
-          messages to request approvals or confirmations for workflows you have
-          subscribed to. When an action requires your approval, you will receive
-          an SMS describing the request and can reply to approve or deny it.
+          Wildmat Dev sends transactional SMS messages to request approvals or
+          confirmations for workflow actions. When an action requires your
+          response, you will receive an SMS from Wildmat Dev describing the
+          request and can reply to approve or deny it.
         </p>
 
         <h2>Message Frequency</h2>
@@ -42,15 +42,15 @@ const SmsTermsPage = () => {
         <h2>Opt-Out</h2>
         <p>
           You can opt out of receiving SMS messages at any time by replying{" "}
-          <strong>STOP</strong> to any message you receive from Handshaker. After
-          opting out, you will receive a one-time confirmation message and no
-          further SMS messages will be sent to your number.
+          <strong>STOP</strong> to any message you receive from Wildmat Dev.
+          After opting out, you will receive a one-time confirmation message and
+          no further SMS messages will be sent to your number.
         </p>
 
         <h2>Help</h2>
         <p>
           For help, reply <strong>HELP</strong> to any message you receive from
-          Handshaker, or contact us at{" "}
+          Wildmat Dev, or contact us at{" "}
           <a href="mailto:hello@wildmat.dev">hello@wildmat.dev</a>.
         </p>
 

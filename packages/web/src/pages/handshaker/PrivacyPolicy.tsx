@@ -14,15 +14,15 @@ const PrivacyPolicyPage = () => {
         </p>
 
         <p>
-          This Privacy Policy describes how Matt Wilde ("we", "us", "our")
-          collects, uses, and protects information in connection with the
-          Handshaker SMS notification service. By using Handshaker or providing
-          your phone number for SMS notifications, you agree to the practices
-          described in this policy.
+          This Privacy Policy describes how Wildmat Dev, a sole proprietorship
+          operated by Matt Wilde ("we", "us", "our"), collects, uses, and
+          protects information in connection with the Wildmat Dev SMS
+          notification service. By providing your phone number for SMS
+          notifications, you agree to the practices described in this policy.
         </p>
 
         <h2>Information We Collect</h2>
-        <p>We collect the following information when you opt in to Handshaker SMS notifications:</p>
+        <p>We collect the following information when you opt in to Wildmat Dev SMS notifications:</p>
         <ul>
           <li>
             <strong>Phone number</strong> — the mobile number you provide to
@@ -43,8 +43,8 @@ const PrivacyPolicyPage = () => {
         <h2>How We Use Your Information</h2>
         <p>Your information is used exclusively to:</p>
         <ul>
-          <li>Send you transactional SMS messages related to workflows you have subscribed to.</li>
-          <li>Process your replies to approve or deny handshake requests.</li>
+          <li>Send you transactional SMS messages from Wildmat Dev related to workflow actions that require your response.</li>
+          <li>Process your replies to approve or deny requests.</li>
           <li>Honor opt-out requests and manage your consent status.</li>
           <li>Maintain records as required by telecommunications regulations.</li>
         </ul>
@@ -140,7 +140,7 @@ const PrivacyPolicyPage = () => {
           contact us:
         </p>
         <p>
-          Matt Wilde
+          Wildmat Dev (Matt Wilde)
           <br />
           Email:{" "}
           <a href="mailto:hello@wildmat.dev">hello@wildmat.dev</a>

@@ -12,20 +12,19 @@ const BusinessPage = () => {
 
         <h2>About</h2>
         <p>
-          Matt Wilde is a software engineer operating as a{" "}
-          <strong>sole proprietor</strong> based in Charlotte, North Carolina.
-          This website and its associated services — including{" "}
-          <strong>Handshaker</strong> — are owned and operated by Matt Wilde,
-          CEO of WILDMAT DEV.
+          Wildmat Dev is a <strong>sole proprietorship</strong> owned and
+          operated by Matt Wilde, based in Charlotte, North Carolina. This
+          website and its associated services are owned and operated by Wildmat
+          Dev.
         </p>
 
         <h2>Services</h2>
         <p>
-          <strong>Handshaker</strong> is a transactional notification and
-          approval workflow service. It enables automated two-way SMS
-          communication for approval requests, confirmations, and status
-          updates. Users opt in to receive messages and can respond directly via
-          SMS to approve or deny workflow actions.
+          Wildmat Dev operates a transactional SMS notification service that
+          sends messages to request approvals or confirmations for workflow
+          actions. Recipients opt in to receive messages from Wildmat Dev and
+          can respond directly via SMS to approve or deny requests. No
+          marketing or promotional messages are sent.
         </p>
         <p>
           For details on how the SMS program works, see the{" "}
