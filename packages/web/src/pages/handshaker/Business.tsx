@@ -20,11 +20,12 @@ const BusinessPage = () => {
 
         <h2>Services</h2>
         <p>
-          Wildmat Dev operates a transactional SMS notification service that
-          sends messages to request approvals or confirmations for workflow
-          actions. Recipients opt in to receive messages from Wildmat Dev and
-          can respond directly via SMS to approve or deny requests. No
-          marketing or promotional messages are sent.
+          <strong>Handshaker</strong> is a transactional SMS notification
+          service operated by Wildmat Dev. It sends messages to request
+          approvals or confirmations for workflow actions. Recipients opt in to
+          receive messages from Handshaker and can respond directly via SMS to
+          approve or deny requests. No marketing or promotional messages are
+          sent.
         </p>
         <p>
           For details on how the SMS program works, see the{" "}
@@ -93,10 +94,7 @@ const BusinessPage = () => {
 
         <h2>Business Type</h2>
         <p>
-          Sole proprietorship. As a sole proprietor, no EIN or business
-          registration number is required for Toll-Free Verification per current
-          TCPA and carrier guidelines (sole proprietorships are exempt from the
-          Business Registration Number requirement effective February 17, 2026).
+          Sole proprietorship (EIN: 41-4732990).
         </p>
       </article>
     </PageSection>

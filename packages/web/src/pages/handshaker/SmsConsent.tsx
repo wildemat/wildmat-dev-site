@@ -14,7 +14,7 @@ import {
 import { CheckCircle, XCircle } from "lucide-react";
 
 const SmsConsentPage = () => {
-  useDocumentTitle("SMS Consent — Wildmat Dev");
+  useDocumentTitle("SMS Consent — Handshaker by Wildmat Dev");
 
   const [termsAcknowledged, setTermsAcknowledged] = useState(false);
   const [smsConsent, setSmsConsent] = useState(false);
@@ -56,13 +56,13 @@ const SmsConsentPage = () => {
             <CardTitle>You're Enrolled</CardTitle>
             <CardDescription>
               You have successfully opted in to receive transactional SMS
-              notifications from Wildmat Dev.
+              notifications from Handshaker by Wildmat Dev.
             </CardDescription>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground space-y-2">
             <p>
-              You will receive SMS messages from Wildmat Dev only when a
-              workflow action requires your response. Reply{" "}
+              You will receive SMS messages from Handshaker (Wildmat Dev)
+              only when a workflow action requires your response. Reply{" "}
               <strong>STOP</strong> at any time to opt out.
             </p>
             <p>
@@ -82,11 +82,11 @@ const SmsConsentPage = () => {
     <PageSection centered className="flex-1 py-16">
       <Card className="max-w-md w-full text-left">
         <CardHeader>
-          <CardTitle>Wildmat Dev — SMS Notifications</CardTitle>
+          <CardTitle>Handshaker by Wildmat Dev</CardTitle>
           <CardDescription>
-            Wildmat Dev would like to send you transactional SMS messages when a
-            workflow action requires your response. This consent is entirely
-            optional.
+            Handshaker, a Wildmat Dev service, would like to send you
+            transactional SMS messages when a workflow action requires your
+            response. This consent is entirely optional.
           </CardDescription>
         </CardHeader>
 
@@ -94,7 +94,8 @@ const SmsConsentPage = () => {
           <div className="space-y-2 text-sm text-muted-foreground">
             <p>
               If you opt in, you will receive automated SMS messages from{" "}
-              <strong>Wildmat Dev</strong> containing approval requests and
+              <strong>Handshaker</strong>, a service operated by{" "}
+              <strong>Wildmat Dev</strong>, containing approval requests and
               confirmations. Messages are transactional and sent only when an
               action requires your response.
             </p>
@@ -143,7 +144,7 @@ const SmsConsentPage = () => {
               />
               <span className="text-sm leading-snug">
                 I consent to receive transactional SMS messages from{" "}
-                <strong>Wildmat Dev</strong>.
+                <strong>Handshaker by Wildmat Dev</strong>.
               </span>
             </label>
           </div>

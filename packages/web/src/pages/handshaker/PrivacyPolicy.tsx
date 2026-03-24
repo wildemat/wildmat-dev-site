@@ -16,13 +16,14 @@ const PrivacyPolicyPage = () => {
         <p>
           This Privacy Policy describes how Wildmat Dev, a sole proprietorship
           operated by Matt Wilde ("we", "us", "our"), collects, uses, and
-          protects information in connection with the Wildmat Dev SMS
-          notification service. By providing your phone number for SMS
-          notifications, you agree to the practices described in this policy.
+          protects information in connection with Handshaker, a transactional
+          SMS notification service operated by Wildmat Dev. By providing your
+          phone number for SMS notifications, you agree to the practices
+          described in this policy.
         </p>
 
         <h2>Information We Collect</h2>
-        <p>We collect the following information when you opt in to Wildmat Dev SMS notifications:</p>
+        <p>We collect the following information when you opt in to Handshaker SMS notifications:</p>
         <ul>
           <li>
             <strong>Phone number</strong> — the mobile number you provide to
@@ -43,7 +44,7 @@ const PrivacyPolicyPage = () => {
         <h2>How We Use Your Information</h2>
         <p>Your information is used exclusively to:</p>
         <ul>
-          <li>Send you transactional SMS messages from Wildmat Dev related to workflow actions that require your response.</li>
+          <li>Send you transactional SMS messages from Handshaker related to workflow actions that require your response.</li>
           <li>Process your replies to approve or deny requests.</li>
           <li>Honor opt-out requests and manage your consent status.</li>
           <li>Maintain records as required by telecommunications regulations.</li>
