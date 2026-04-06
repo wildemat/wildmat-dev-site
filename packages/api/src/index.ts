@@ -4,8 +4,9 @@ import { health } from './routes/health.js';
 import { feedback } from './routes/feedback.js';
 import { fitness } from './routes/fitness.js';
 
+export { MetricsRelay } from './MetricsRelay.js';
+
 type Bindings = {
-  FITNESS_METRICS: KVNamespace;
   FITNESS_API_KEY: string;
   OVERLAYS_API_KEY: string;
 };

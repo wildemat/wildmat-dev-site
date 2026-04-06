@@ -1,29 +1,41 @@
 import { Hono } from 'hono';
 import { streamSSE } from 'hono/streaming';
+import type { MetricsRelay } from '../MetricsRelay.js';
 
 type Bindings = {
-  FITNESS_METRICS: KVNamespace;
+  METRICS_RELAY: DurableObjectNamespace<MetricsRelay>;
 };
 
-const KV_KEY = 'latest';
+function getRelay(env: Bindings): DurableObjectStub<MetricsRelay> {
+  const id = env.METRICS_RELAY.idFromName('default');
+  return env.METRICS_RELAY.get(id);
+}
 
 export const fitness = new Hono<{ Bindings: Bindings }>();
 
 fitness.get('/events', (c) => {
+  const relay = getRelay(c.env);
+
   return streamSSE(c, async (stream) => {
     let lastSeen = '';
 
+    // Send whatever is already stored so the overlay hydrates immediately.
+    const current = await relay.peek();
+    if (current) {
+      lastSeen = current;
+      await stream.writeSSE({ event: 'metrics', data: current });
+    }
+
     while (true) {
-      const raw = await c.env.FITNESS_METRICS.get(KV_KEY);
+      const raw = await relay.waitForUpdate(15_000);
 
       if (raw && raw !== lastSeen) {
         lastSeen = raw;
         await stream.writeSSE({ event: 'metrics', data: raw });
       } else {
+        // Timeout with no new data — send a comment keepalive.
         await stream.writeSSE({ event: 'ping', data: '' });
       }
-
-      await stream.sleep(2000);
     }
   });
 });
@@ -37,10 +49,11 @@ fitness.post('/', async (c) => {
   }
 
   const payload = { ...body, _ts: Date.now() };
-  await c.env.FITNESS_METRICS.put(KV_KEY, JSON.stringify(payload), {
-    expirationTtl: 3600,
-  });
+  const raw = JSON.stringify(payload);
 
-  console.log('[fitness]', JSON.stringify(payload));
+  const relay = getRelay(c.env);
+  await relay.ingest(raw);
+
+  console.log('[fitness]', raw);
   return c.json({ ok: true });
 });

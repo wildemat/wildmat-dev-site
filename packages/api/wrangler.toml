@@ -18,9 +18,14 @@ enabled = false
 persist = true
 head_sampling_rate = 1
 
-[[kv_namespaces]]
-binding = "FITNESS_METRICS"
-id = "64a186bce8bc47f1bfd10e5ca57832c4"
+[durable_objects]
+bindings = [
+  { name = "METRICS_RELAY", class_name = "MetricsRelay" },
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["MetricsRelay"]
 
 [[routes]]
 pattern = "api.wildmat.dev/*"
