@@ -19,11 +19,16 @@ fitness.get('/events', (c) => {
   return streamSSE(c, async (stream) => {
     let lastSeen = '';
 
-    // Send whatever is already stored so the overlay hydrates immediately.
+    // Send the cached payload only if it's recent enough to still be relevant.
     const current = await relay.peek();
     if (current) {
-      lastSeen = current;
-      await stream.writeSSE({ event: 'metrics', data: current });
+      try {
+        const parsed = JSON.parse(current);
+        if (typeof parsed._ts === 'number' && Date.now() - parsed._ts < 30_000) {
+          lastSeen = current;
+          await stream.writeSSE({ event: 'metrics', data: current });
+        }
+      } catch { /* stale or unparseable — skip */ }
     }
 
     while (true) {
