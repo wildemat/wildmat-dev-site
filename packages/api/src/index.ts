@@ -13,7 +13,7 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>();
 
 app.use('/fitness/*', cors({
-  origin: 'https://fitness.wildmat.dev',
+  origin: '*',
 }));
 
 app.use('*', async (c, next) => {
