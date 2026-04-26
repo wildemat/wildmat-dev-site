@@ -13,12 +13,15 @@
     "dev:web": "npm run dev -w @wildmat/web",
     "dev:api": "npm run dev -w @wildmat/api",
     "dev:gateway": "npm run dev -w @wildmat/gateway",
+    "dev:personality": "npm run dev -w @wildmat/personality",
     "build:web": "npm run build -w @wildmat/web",
     "build:api": "npm run build -w @wildmat/api",
     "build:gateway": "npm run build -w @wildmat/gateway",
-    "build": "npm run build:api && npm run build:web && npm run build:gateway",
+    "build:personality": "npm run build -w @wildmat/personality",
+    "build": "npm run build:api && npm run build:web && npm run build:gateway && npm run build:personality",
     "deploy:api": "npm run deploy -w @wildmat/api",
     "deploy:gateway": "npm run deploy -w @wildmat/gateway",
+    "deploy:personality": "npm run deploy -w @wildmat/personality",
     "lint": "npm run lint --workspaces --if-present"
   }
 }

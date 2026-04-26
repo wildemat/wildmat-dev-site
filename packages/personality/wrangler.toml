@@ -1,0 +1,21 @@
+name = "wildmat-personality"
+main = "src/index.ts"
+compatibility_date = "2025-02-12"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "production"
+LLM_MODEL = "claude-opus-4-7"
+
+[[r2_buckets]]
+binding = "PERSONALITY_REFS"
+bucket_name = "personality-refs"
+
+[[routes]]
+pattern = "api.wildmat.dev/personality/*"
+zone_name = "wildmat.dev"
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+invocation_logs = true
