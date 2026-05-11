@@ -1,6 +1,8 @@
 # Personality MCP Server -- Build Plan
 
-## What this is
+> **Superseded by `~/Github/personality/PLAN.md` (2026-04-26).** The personality repo is now the single source of truth for the deployed service. This package is being reduced to a thin proxy that forwards `api.wildmat.dev/personality/*` to `personality.wildmat.dev/*`. The engine code under `src/engine/` and `src/tools/` is slated for removal once the proxy ships (Phase 4 of the new plan). Do not extend the logic in this package — make changes in the personality repo instead.
+
+## What this is (historical)
 
 A Cloudflare Worker that serves the personality engine as an MCP server at `personality.wildmat.dev`. Agents connect via the MCP protocol and call tools to generate personality-matched responses or read personality data -- no local filesystem access required.
 
