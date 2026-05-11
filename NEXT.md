@@ -1,37 +1,59 @@
-# NEXT — personality-package-deprecation-notice
+# NEXT — personality-proxy-refactor
 
-**Branch:** `personality-package-deprecation-notice`
+**Branch:** `personality-proxy-refactor`
+**Forked from:** `personality-package-deprecation-notice`
 **Last touched:** 2026-05-11
-**Status:** Notice-only commit. Proxy refactor lives on `personality-proxy-refactor`.
+**Status:** Code refactor complete + tests in place. Deploy is gated on
+the upstream personality service being live.
 
-## What's done
+## What's done on this branch
 
-- `packages/personality/PLAN.md` updated with the supersession banner.
-- `packages/personality/CROSS_REPO.md` documents the cross-repo
-  relationships.
+- `packages/personality/src/` reduced from a full engine
+  (`engine/`, `tools/`, `mcp.ts`, `lib/`) to a single-file Hono proxy
+  in `src/index.ts` plus a minimal `src/env.ts`.
+- `wrangler.toml`: dropped R2 binding, dropped LLM model var, added
+  `PERSONALITY_SERVICE_BASE_URL`. Route binding for
+  `api.wildmat.dev/personality/*` is unchanged.
+- `package.json`: added vitest, added `test` / `test:watch` scripts.
+- `tests/proxy.test.ts`: covers health forward, respond forward,
+  header strip, path rewrite, 502/504/500/410 error mapping.
+- `docs/cutover.md`: deploy + verification + rollback playbook.
+- `CROSS_REPO.md` + this `NEXT.md` updated.
 
-## What's NOT done on this branch
+## What's NOT done
 
-- The actual code refactor (delete `src/engine/`, `src/tools/`, reduce
-  `src/index.ts` to a Hono proxy). That work is on
-  `personality-proxy-refactor`, which forks from this branch and is
-  blocked on `personality.wildmat.dev` being deployable (i.e. the
-  personality repo's `phase1-service-scaffold` branch shipping).
+- **Not deployed.** Wait for the personality repo's
+  `phase1-service-scaffold` to land at `personality.wildmat.dev` first.
+- **Not merged to `main`.** Merge after a successful smoke test (see
+  `packages/personality/docs/cutover.md`).
+- **No browser-facing UI on `api.wildmat.dev/personality/health`.**
+  CORS is enabled on that route so a future status page could use it.
+  We haven't built that page yet.
 
-## How to pick this back up
+## Deploy gate
 
-1. `git checkout personality-package-deprecation-notice`
-2. If the personality repo's `phase1-service-scaffold` is far enough
-   along to deploy locally, switch to `personality-proxy-refactor` and
-   do the code reduction there.
-3. Do NOT merge to `main` until the personality service is actually
-   reachable at `personality.wildmat.dev`.
+Run, in order:
+
+```sh
+curl -fsS https://personality.wildmat.dev/health     # must return 200
+cd ~/Github/wildmat-dev-site-wt/personality-proxy-refactor
+npm install
+npm run test -w @wildmat/personality                 # vitest, expect green
+npm run build -w @wildmat/personality                # wrangler dry-run
+npm run deploy -w @wildmat/personality               # publishes the proxy
+```
+
+After deploy, run the curl verifications in
+`packages/personality/docs/cutover.md`.
+
+## Rollback target
+
+Last engine-bearing commit on `main`: `67b3c42`. See
+`packages/personality/docs/cutover.md` for the revert recipe.
 
 ## Open questions
 
-- The current `packages/personality/src/index.ts` exports an MCP
-  endpoint at `api.wildmat.dev/personality/mcp`. After the proxy
-  refactor, does this stay (forwarded to the personality repo's MCP
-  endpoint if/when it exists) or get removed? Decide on the
-  `personality-proxy-refactor` branch after looking at what callers
-  hit `/mcp` today.
+- Engage `engage/personality-http-swap-plan` says server-side flows
+  should bypass this proxy. Once that swap actually ships, audit whether
+  anything still needs `api.wildmat.dev/personality/*`. If nothing
+  does, this whole worker can be retired and the DNS route freed.

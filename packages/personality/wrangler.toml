@@ -3,13 +3,12 @@ main = "src/index.ts"
 compatibility_date = "2025-02-12"
 compatibility_flags = ["nodejs_compat"]
 
+# The R2 binding and LLM secrets are gone — engine code now lives in the
+# personality repo and runs as a container behind personality.wildmat.dev.
+# This worker is now a thin HTTP proxy. See packages/personality/CROSS_REPO.md.
 [vars]
 ENVIRONMENT = "production"
-LLM_MODEL = "claude-opus-4-7"
-
-[[r2_buckets]]
-binding = "PERSONALITY_REFS"
-bucket_name = "personality-refs"
+PERSONALITY_SERVICE_BASE_URL = "https://personality.wildmat.dev"
 
 [[routes]]
 pattern = "api.wildmat.dev/personality/*"
