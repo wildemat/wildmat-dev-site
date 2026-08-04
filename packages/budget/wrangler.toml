@@ -1,0 +1,29 @@
+name = "wildmat-budget"
+main = "src/index.ts"
+compatibility_date = "2025-02-12"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+PLAID_ENV = "production"
+
+[[kv_namespaces]]
+binding = "BUDGET_KV"
+id = "8657adbabdd44cbca61adf28a3fcbd05"
+
+[[kv_namespaces]]
+binding = "OAUTH_KV"
+id = "831e8b2b621944bd8b6d2e6408190a53"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "budget-tracker"
+database_id = "41a68d29-3753-41a6-b928-a9425b92d85e"
+
+[[routes]]
+pattern = "api.wildmat.dev/budget*"
+zone_name = "wildmat.dev"
+
+# OAuth discovery must live at the host root; wildmat-api serves nothing there.
+[[routes]]
+pattern = "api.wildmat.dev/.well-known/*"
+zone_name = "wildmat.dev"
