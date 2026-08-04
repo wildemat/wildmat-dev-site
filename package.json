@@ -15,16 +15,20 @@
     "dev:gateway": "npm run dev -w @wildmat/gateway",
     "dev:personality": "npm run dev -w @wildmat/personality",
     "dev:budget": "npm run dev -w @wildmat/budget",
+    "dev:todo": "npm run dev -w @wildmat/todo",
     "build:web": "npm run build -w @wildmat/web",
     "build:api": "npm run build -w @wildmat/api",
     "build:gateway": "npm run build -w @wildmat/gateway",
     "build:personality": "npm run build -w @wildmat/personality",
     "build:budget": "npm run build -w @wildmat/budget",
-    "build": "npm run build:api && npm run build:web && npm run build:gateway && npm run build:personality && npm run build:budget",
+    "build:todo": "npm run build -w @wildmat/todo",
+    "build": "npm run build:api && npm run build:web && npm run build:gateway && npm run build:personality && npm run build:budget && npm run build:todo",
     "deploy:api": "npm run deploy -w @wildmat/api",
     "deploy:gateway": "npm run deploy -w @wildmat/gateway",
     "deploy:personality": "npm run deploy -w @wildmat/personality",
     "deploy:budget": "npm run deploy -w @wildmat/budget",
+    "deploy:todo": "npm run deploy -w @wildmat/todo",
+    "test:todo": "npm run test -w @wildmat/todo",
     "lint": "npm run lint --workspaces --if-present"
   }
 }
