@@ -86,6 +86,8 @@ export function taskFromApi(raw: any): Task {
 /** The surface the provider depends on — tests substitute a fake. */
 export interface TodoistApi {
   snapshot(): Promise<Snapshot>;
+  getTask(taskId: string): Promise<Task | undefined>;
+  completedTasks(sinceDays: number): Promise<Task[]>;
   createTask(fields: Record<string, unknown>): Promise<Task>;
   updateTask(taskId: string, fields: Record<string, unknown>): Promise<Task>;
   closeTask(taskId: string): Promise<void>;
@@ -151,6 +153,27 @@ export class TodoistClient implements TodoistApi {
         email: r.email ?? undefined,
       })),
     };
+  }
+
+  // The sync snapshot only carries active items, so completed tasks need
+  // their own lookups for reopen / delete / comment to reach them.
+  async getTask(taskId: string): Promise<Task | undefined> {
+    try {
+      return taskFromApi(await this.req('GET', `${API_URL}/tasks/${taskId}`));
+    } catch {
+      return undefined;
+    }
+  }
+
+  async completedTasks(sinceDays: number): Promise<Task[]> {
+    const until = new Date().toISOString().slice(0, 19);
+    const since = new Date(Date.now() - sinceDays * 86400_000).toISOString().slice(0, 19);
+    const query = new URLSearchParams({ since, until, limit: '100' });
+    const data = await this.req(
+      'GET',
+      `${API_URL}/tasks/completed/by_completion_date?${query}`,
+    );
+    return (data?.items ?? []).map((raw: any) => ({ ...taskFromApi(raw), completed: true }));
   }
 
   async createTask(fields: Record<string, unknown>): Promise<Task> {

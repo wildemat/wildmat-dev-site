@@ -64,11 +64,11 @@ function tokenSetRatio(a: string, b: string): number {
   const onlyA = [...setA].filter((t) => !setB.has(t)).sort().join(' ');
   const onlyB = [...setB].filter((t) => !setA.has(t)).sort().join(' ');
   const combined = (base: string, extra: string) => (extra ? `${base} ${extra}`.trim() : base);
-  return Math.max(
-    ratio(both, combined(both, onlyA)),
-    ratio(both, combined(both, onlyB)),
-    ratio(combined(both, onlyA), combined(both, onlyB)),
-  );
+  // Deliberately omits the intersection-vs-whole comparisons that RapidFuzz's
+  // token_set_ratio includes: those score 1.0 whenever one title's tokens are a
+  // subset of the other's, which would collapse "Pack kitchen" into
+  // "Pack kitchen fragile items".
+  return ratio(combined(both, onlyA), combined(both, onlyB));
 }
 
 /** 0..1 score combining full-string and token-set similarity. */

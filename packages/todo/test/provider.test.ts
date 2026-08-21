@@ -99,6 +99,29 @@ describe('assign', () => {
   });
 });
 
+describe('completed tasks', () => {
+  it('reopens a completed task found by name', async () => {
+    await provider.completeTask('Buy boxes');
+    const result: any = await provider.reopenTask('Buy boxes');
+    expect(result.task.id).toBe('t3');
+    expect(result.task.completed).toBe(false);
+    expect(api.calls.some(([name]) => name === 'completedTasks')).toBe(true);
+  });
+
+  it('reaches a completed task by id', async () => {
+    await provider.completeTask('Buy boxes');
+    const result: any = await provider.addComment('t3', 'late note');
+    expect(result.task.id).toBe('t3');
+  });
+
+  it('search includes completed tasks only when asked', async () => {
+    await provider.completeTask('Buy boxes');
+    expect((await provider.searchTasks('boxes')).length).toBe(0);
+    const withDone: any = await provider.searchTasks('boxes', undefined, true);
+    expect(withDone[0].id).toBe('t3');
+  });
+});
+
 describe('move and update', () => {
   it('moves to an existing section', async () => {
     const result: any = await provider.moveTask('Buy boxes', { section: 'Utilities' });

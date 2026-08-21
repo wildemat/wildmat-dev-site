@@ -12,6 +12,7 @@ import { priorityToApi, priorityToLabel } from './todoist.js';
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const BLOCKED_HINT = /\b(blocked by|waiting on|depends on)\b/i;
+const COMPLETED_LOOKBACK_DAYS = 30;
 
 export type ProviderConfig = {
   defaultProject: string;
@@ -107,13 +108,30 @@ export class TodoProvider {
     return this.api.createSection(project.id, name);
   }
 
-  private resolveTask(snap: Snapshot, ref: string, project?: string): Task {
+  /**
+   * Resolves an id or a natural-language reference. Completed tasks are absent
+   * from the sync snapshot, so they are fetched on demand — by id always, and
+   * by name only when the caller expects a completed task (reopen).
+   */
+  private async resolveTask(
+    snap: Snapshot,
+    ref: string,
+    opts: { project?: string; includeCompleted?: boolean } = {},
+  ): Promise<Task> {
     const trimmed = ref.trim();
     const byId = snap.tasks.find((t) => t.id === trimmed);
     if (byId) return byId;
-    const projectId = project ? this.resolveProject(snap, project).id : undefined;
+    const projectId = opts.project ? this.resolveProject(snap, opts.project).id : undefined;
     const ranked = matching.rank(trimmed, openTasks(snap, projectId));
     if (ranked.length && ranked[0][1] >= 0.6) return ranked[0][0];
+
+    const fetched = await this.api.getTask(trimmed);
+    if (fetched) return fetched;
+    if (opts.includeCompleted) {
+      const done = await this.api.completedTasks(COMPLETED_LOOKBACK_DAYS);
+      const rankedDone = matching.rank(trimmed, done);
+      if (rankedDone.length && rankedDone[0][1] >= 0.6) return rankedDone[0][0];
+    }
     const near = ranked.slice(0, 3).map(([t]) => `'${t.content}'`).join(', ');
     throw new TaskLookupError(`No task matching '${ref}'.${near ? ` Closest: ${near}` : ''}`);
   }
@@ -198,10 +216,11 @@ export class TodoProvider {
   async searchTasks(query: string, project?: string, includeCompleted = false): Promise<Rendered[]> {
     const snap = await this.api.snapshot();
     const projectId = project ? this.resolveProject(snap, project).id : undefined;
-    const pool = snap.tasks.filter(
-      (t) =>
-        (includeCompleted || !t.completed) &&
-        (projectId === undefined || t.projectId === projectId),
+    const completed = includeCompleted
+      ? await this.api.completedTasks(COMPLETED_LOOKBACK_DAYS)
+      : [];
+    const pool = [...snap.tasks, ...completed].filter(
+      (t) => (includeCompleted || !t.completed) && (projectId === undefined || t.projectId === projectId),
     );
     return matching
       .search(query, pool)
@@ -297,7 +316,7 @@ export class TodoProvider {
 
   async updateTask(ref: string, args: UpdateArgs): Promise<{ action: string; task: Rendered }> {
     const snap = await this.api.snapshot();
-    let target = this.resolveTask(snap, ref);
+    let target = await this.resolveTask(snap, ref);
     const fields: Record<string, unknown> = {};
     if (args.title) fields.content = args.title;
     if (args.description) fields.description = args.description;
@@ -323,7 +342,7 @@ export class TodoProvider {
     opts: { comment?: string; speaker?: string; quote?: string } = {},
   ): Promise<Rendered> {
     const snap = await this.api.snapshot();
-    const target = this.resolveTask(snap, ref);
+    const target = await this.resolveTask(snap, ref);
     await this.api.closeTask(target.id);
     await this.audit(target.id, 'Completed', {
       context: opts.comment,
@@ -335,7 +354,7 @@ export class TodoProvider {
 
   async reopenTask(ref: string): Promise<Rendered> {
     const snap = await this.api.snapshot();
-    const target = snap.tasks.find((t) => t.id === ref.trim()) ?? this.resolveTask(snap, ref);
+    const target = await this.resolveTask(snap, ref, { includeCompleted: true });
     await this.api.reopenTask(target.id);
     await this.audit(target.id, 'Reopened');
     return { action: 'reopened', task: this.render(snap, { ...target, completed: false }) };
@@ -343,21 +362,21 @@ export class TodoProvider {
 
   async deleteTask(ref: string): Promise<Rendered> {
     const snap = await this.api.snapshot();
-    const target = this.resolveTask(snap, ref);
+    const target = await this.resolveTask(snap, ref);
     await this.api.deleteTask(target.id);
     return { action: 'deleted', task: { id: target.id, title: target.content } };
   }
 
   async addComment(ref: string, content: string): Promise<Rendered> {
     const snap = await this.api.snapshot();
-    const target = this.resolveTask(snap, ref);
+    const target = await this.resolveTask(snap, ref);
     await this.api.addComment(target.id, content);
     return { action: 'commented', task: { id: target.id, title: target.content } };
   }
 
   async moveTask(ref: string, dest: { section?: string; project?: string }): Promise<Rendered> {
     const snap = await this.api.snapshot();
-    let target = this.resolveTask(snap, ref);
+    let target = await this.resolveTask(snap, ref);
     if (!dest.section && !dest.project) {
       throw new TaskLookupError('move_task needs a section and/or project');
     }
@@ -378,7 +397,7 @@ export class TodoProvider {
 
   async assignTask(ref: string, person: string): Promise<Rendered> {
     const snap = await this.api.snapshot();
-    const target = this.resolveTask(snap, ref);
+    const target = await this.resolveTask(snap, ref);
     const collab = this.resolvePerson(snap, person);
     const updated = await this.api.updateTask(target.id, { assignee_id: collab.id });
     await this.audit(target.id, `Assigned to ${collab.name}`);

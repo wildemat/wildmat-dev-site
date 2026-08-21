@@ -10,6 +10,8 @@ import { INSTRUCTIONS, MAINTAIN_TASKS_PROMPT } from './prompts.js';
 import { TaskLookupError, TodoProvider } from './provider.js';
 import { TodoistClient } from './todoist.js';
 
+class UnknownToolError extends Error {}
+
 const SERVER_INFO = { name: 'family-os-tasks', version: '1.0.0' };
 const SUPPORTED_PROTOCOLS = ['2025-06-18', '2025-03-26', '2024-11-05'];
 
@@ -216,6 +218,51 @@ const TOOL_DEFS = [
     inputSchema: { type: 'object', properties: {} },
   },
   {
+    name: 'batch',
+    description:
+      'Apply several changes in ONE call. Prefer this whenever a message implies more than one change ("Matt scheduled the inspection, we still need to call movers, and Courtney is handling the school forms"). Operations run in order and are independent: one failure does not stop the rest. Each operation takes the same fields as its single tool.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        operations: {
+          type: 'array',
+          description: 'Changes to apply, in order',
+          items: {
+            type: 'object',
+            properties: {
+              action: {
+                type: 'string',
+                description: 'Which change to make',
+                enum: [
+                  'create', 'update', 'complete', 'reopen', 'delete',
+                  'assign', 'comment', 'move', 'project', 'section', 'label',
+                ],
+              },
+              task: TASK_REF,
+              title: str('create/update: task title'),
+              description: str('create/update: task details'),
+              name: str('project/section/label: the name to create'),
+              project: PROJECT,
+              section: str('Section name'),
+              labels: strArr('Label names'),
+              priority: { type: 'string', enum: ['P1', 'P2', 'P3', 'P4'] },
+              due_date: str('YYYY-MM-DD or natural language'),
+              assignee: str('create: assign to this first name'),
+              person: str('assign: first name to assign to'),
+              parent_id: str('create: parent task id for a subtask'),
+              content: str('comment: the comment text'),
+              speaker: str('complete: who reported it done'),
+              quote: str('complete: their exact words'),
+              context: str('Why — kept as an audit comment'),
+            },
+            required: ['action'],
+          },
+        },
+      },
+      required: ['operations'],
+    },
+  },
+  {
     name: 'extract_action_items',
     description:
       'Pull candidate new tasks out of conversation text ("we should hire movers" → "hire movers"). Check each against search_tasks before creating.',
@@ -266,29 +313,29 @@ function buildProvider(env: Env): TodoProvider {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-async function handleToolCall(env: Env, name: string, args: any): Promise<unknown> {
-  const provider = buildProvider(env);
+/** Runs one tool against a shared provider, returning its raw result. */
+async function execTool(provider: TodoProvider, name: string, args: any): Promise<unknown> {
   switch (name) {
     case 'list_projects':
-      return toolContent(await provider.listProjects());
+      return (await provider.listProjects());
     case 'get_project':
-      return toolContent(await provider.getProject(args.name));
+      return (await provider.getProject(args.name));
     case 'create_project':
-      return toolContent(await provider.createProject(args.name, args.parent));
+      return (await provider.createProject(args.name, args.parent));
     case 'create_section':
-      return toolContent(await provider.createSection(args.name, args.project));
+      return (await provider.createSection(args.name, args.project));
     case 'create_label':
-      return toolContent(await provider.createLabel(args.name));
+      return (await provider.createLabel(args.name));
     case 'list_sections': {
       const detail: any = await provider.getProject(args.project);
-      return toolContent(
-        detail.sections.map((s: any) => ({ name: s.name, open_tasks: s.tasks.length })),
+      return (
+        detail.sections.map((s: any) => ({ name: s.name, open_tasks: s.tasks.length }))
       );
     }
     case 'search_tasks':
-      return toolContent(await provider.searchTasks(args.query, args.project, args.include_completed));
+      return (await provider.searchTasks(args.query, args.project, args.include_completed));
     case 'create_task':
-      return toolContent(
+      return (
         await provider.createTask({
           title: args.title,
           description: args.description,
@@ -300,10 +347,10 @@ async function handleToolCall(env: Env, name: string, args: any): Promise<unknow
           assignee: args.assignee,
           parentId: args.parent_id,
           context: args.context,
-        }),
+        })
       );
     case 'update_task':
-      return toolContent(
+      return (
         await provider.updateTask(args.task, {
           title: args.title,
           description: args.description,
@@ -312,48 +359,105 @@ async function handleToolCall(env: Env, name: string, args: any): Promise<unknow
           labels: args.labels,
           section: args.section,
           context: args.context,
-        }),
+        })
       );
     case 'complete_task':
-      return toolContent(
+      return (
         await provider.completeTask(args.task, {
           comment: args.comment,
           speaker: args.speaker,
           quote: args.quote,
-        }),
+        })
       );
     case 'reopen_task':
-      return toolContent(await provider.reopenTask(args.task));
+      return (await provider.reopenTask(args.task));
     case 'delete_task':
-      return toolContent(await provider.deleteTask(args.task));
+      return (await provider.deleteTask(args.task));
     case 'move_task':
-      return toolContent(await provider.moveTask(args.task, { section: args.section, project: args.project }));
+      return (await provider.moveTask(args.task, { section: args.section, project: args.project }));
     case 'assign_task':
-      return toolContent(await provider.assignTask(args.task, args.person));
+      return (await provider.assignTask(args.task, args.person));
     case 'add_comment':
-      return toolContent(await provider.addComment(args.task, args.content));
+      return (await provider.addComment(args.task, args.content));
     case 'list_labels':
-      return toolContent(await provider.listLabels());
+      return (await provider.listLabels());
     case 'today':
-      return toolContent(await provider.today());
+      return (await provider.today());
     case 'next':
-      return toolContent(await provider.nextActions(args.limit ?? 8));
+      return (await provider.nextActions(args.limit ?? 8));
     case 'waiting':
-      return toolContent(await provider.waiting());
+      return (await provider.waiting());
     case 'blocked':
-      return toolContent(await provider.blocked());
+      return (await provider.blocked());
     case 'sync':
-      return toolContent(await provider.sync());
+      return (await provider.sync());
     case 'extract_action_items':
-      return toolContent(intelligence.extractActionItems(args.text ?? ''));
+      return (intelligence.extractActionItems(args.text ?? ''));
     case 'extract_completed_items':
-      return toolContent(intelligence.extractCompletedItems(args.text ?? ''));
+      return (intelligence.extractCompletedItems(args.text ?? ''));
     case 'extract_people':
-      return toolContent(intelligence.extractPeople(args.text ?? ''));
+      return (intelligence.extractPeople(args.text ?? ''));
     case 'extract_dates':
-      return toolContent(intelligence.extractDates(args.text ?? ''));
+      return (intelligence.extractDates(args.text ?? ''));
     default:
-      return toolContent(`unknown tool: ${name}`, true);
+      throw new UnknownToolError(`unknown tool: ${name}`);
+  }
+}
+
+
+const BATCH_ALIASES: Record<string, string> = {
+  create: 'create_task',
+  update: 'update_task',
+  complete: 'complete_task',
+  reopen: 'reopen_task',
+  delete: 'delete_task',
+  assign: 'assign_task',
+  comment: 'add_comment',
+  move: 'move_task',
+  project: 'create_project',
+  section: 'create_section',
+  label: 'create_label',
+};
+
+/**
+ * Applies operations in order against one provider. A failing operation is
+ * recorded and the rest still run — a bad reference in step 2 must not
+ * silently drop steps 3..n.
+ */
+async function runBatch(provider: TodoProvider, operations: any[]): Promise<unknown> {
+  const results = [];
+  for (const [index, op] of operations.entries()) {
+    const action = String(op?.action ?? '');
+    const tool = BATCH_ALIASES[action] ?? action;
+    try {
+      results.push({ index, action, status: 'ok', result: await execTool(provider, tool, op) });
+    } catch (e) {
+      results.push({
+        index,
+        action,
+        status: 'error',
+        error: e instanceof Error ? e.message : String(e),
+      });
+    }
+  }
+  return {
+    applied: results.filter((r) => r.status === 'ok').length,
+    failed: results.filter((r) => r.status === 'error').length,
+    results,
+  };
+}
+
+async function handleToolCall(env: Env, name: string, args: any): Promise<unknown> {
+  const provider = buildProvider(env);
+  try {
+    const result =
+      name === 'batch'
+        ? await runBatch(provider, Array.isArray(args.operations) ? args.operations : [])
+        : await execTool(provider, name, args);
+    return toolContent(result);
+  } catch (e) {
+    if (e instanceof UnknownToolError) return toolContent(e.message, true);
+    throw e;
   }
 }
 

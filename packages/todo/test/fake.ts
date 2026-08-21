@@ -51,6 +51,7 @@ export class FakeApi implements TodoistApi {
   snap = seedSnapshot();
   calls: Array<[string, unknown]> = [];
   comments: Array<{ taskId: string; content: string }> = [];
+  completed: Task[] = [];
   private n = 100;
 
   async snapshot(): Promise<Snapshot> {
@@ -98,12 +99,20 @@ export class FakeApi implements TodoistApi {
 
   async closeTask(taskId: string): Promise<void> {
     this.calls.push(['closeTask', taskId]);
-    this.snap.tasks.find((t) => t.id === taskId)!.completed = true;
+    const task = this.snap.tasks.find((t) => t.id === taskId)!;
+    task.completed = true;
+    this.snap.tasks = this.snap.tasks.filter((t) => t.id !== taskId);
+    this.completed.push(task);
   }
 
   async reopenTask(taskId: string): Promise<void> {
     this.calls.push(['reopenTask', taskId]);
-    this.snap.tasks.find((t) => t.id === taskId)!.completed = false;
+    const task = this.completed.find((t) => t.id === taskId);
+    if (task) {
+      task.completed = false;
+      this.completed = this.completed.filter((t) => t.id !== taskId);
+      this.snap.tasks.push(task);
+    }
   }
 
   async deleteTask(taskId: string): Promise<void> {
@@ -114,6 +123,17 @@ export class FakeApi implements TodoistApi {
   async addComment(taskId: string, content: string): Promise<void> {
     this.calls.push(['addComment', [taskId, content]]);
     this.comments.push({ taskId, content });
+  }
+
+  async getTask(taskId: string): Promise<Task | undefined> {
+    this.calls.push(['getTask', taskId]);
+    const found = [...this.snap.tasks, ...this.completed].find((t) => t.id === taskId);
+    return found ? structuredClone(found) : undefined;
+  }
+
+  async completedTasks(): Promise<Task[]> {
+    this.calls.push(['completedTasks', null]);
+    return structuredClone(this.completed);
   }
 
   async createProject(name: string, parentId?: string): Promise<Project> {

@@ -42,7 +42,7 @@ describe('mcp endpoint', () => {
       'create_project', 'create_section', 'create_label',
       'create_task', 'update_task', 'complete_task', 'reopen_task',
       'delete_task', 'move_task', 'assign_task', 'add_comment', 'list_labels',
-      'today', 'next', 'waiting', 'blocked', 'sync',
+      'today', 'next', 'waiting', 'blocked', 'sync', 'batch',
       'extract_action_items', 'extract_completed_items', 'extract_people', 'extract_dates',
     ]) {
       expect(names).toContain(expected);
@@ -56,6 +56,25 @@ describe('mcp endpoint', () => {
     });
     const body: any = await res.json();
     expect(body.result.content[0].text).toContain('hire movers');
+  });
+
+  it('batch isolates failures and keeps going', async () => {
+    const res = await rpc('tools/call', {
+      name: 'batch',
+      arguments: {
+        operations: [
+          { action: 'extract_action_items', text: 'We should hire movers.' },
+          { action: 'not_a_real_action', task: 'whatever' },
+          { action: 'extract_people', text: 'Matt is handling it' },
+        ],
+      },
+    });
+    const body: any = await res.json();
+    const summary = JSON.parse(body.result.content[0].text);
+    expect(summary.applied).toBe(2);
+    expect(summary.failed).toBe(1);
+    expect(summary.results[1].error).toContain('unknown tool');
+    expect(summary.results[2].result).toContain('Matt');
   });
 
   it('serves the maintain_tasks prompt', async () => {

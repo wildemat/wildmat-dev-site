@@ -28,6 +28,12 @@ describe('matching', () => {
     expect(findMatch('We finished changing the utilities', tasks, 0.85)).toBe(tasks[0]);
   });
 
+  it('does not treat a subset title as a duplicate', () => {
+    const tasks = [task('Pack kitchen')];
+    expect(findMatch('Pack kitchen fragile items', tasks, 0.9)).toBeUndefined();
+    expect(findMatch('Batch smoke B', [task('Batch smoke A')], 0.9)).toBeUndefined();
+  });
+
   it('does not match unrelated text', () => {
     expect(findMatch('Book a dentist appointment', [task('Change utilities')], 0.9)).toBeUndefined();
   });
