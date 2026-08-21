@@ -96,6 +96,33 @@ describe('mcp endpoint', () => {
     expect(summary.results[2].result).toContain('Matt');
   });
 
+  it('accepts operations sent as a JSON string', async () => {
+    const res = await rpc('tools/call', {
+      name: 'batch',
+      arguments: {
+        operations: JSON.stringify([{ action: 'extract_people', text: 'Matt said so' }]),
+      },
+    });
+    const body: any = await res.json();
+    expect(body.result.structuredContent.applied).toBe(1);
+  });
+
+  it('accepts a single operation without the array wrapper', async () => {
+    const res = await rpc('tools/call', {
+      name: 'batch',
+      arguments: { action: 'extract_people', text: 'Court said so' },
+    });
+    const body: any = await res.json();
+    expect(body.result.structuredContent.applied).toBe(1);
+  });
+
+  it('errors instead of silently reporting an empty batch', async () => {
+    const res = await rpc('tools/call', { name: 'batch', arguments: {} });
+    const body: any = await res.json();
+    expect(body.result.isError).toBe(true);
+    expect(body.result.content[0].text).toContain('No operations were supplied');
+  });
+
   it('serves the maintain_tasks prompt', async () => {
     const res = await rpc('prompts/get', { name: 'maintain_tasks' });
     const body: any = await res.json();

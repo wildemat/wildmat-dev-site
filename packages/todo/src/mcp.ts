@@ -572,6 +572,30 @@ const BATCH_ALIASES: Record<string, string> = {
  * recorded and the rest still run — a bad reference in step 2 must not
  * silently drop steps 3..n.
  */
+function coerceOperations(args: any): any[] {
+  // Models pass this shape inconsistently: the documented array, a
+  // JSON-encoded string, a bare array of operations, or a single operation.
+  // Anything recognizable is accepted; anything else is an explicit error.
+  const candidates = [args?.operations, args?.ops, args?.tasks, args?.items, args?.changes, args];
+  for (const candidate of candidates) {
+    const value =
+      typeof candidate === 'string' && candidate.trim().startsWith('[')
+        ? safeParse(candidate)
+        : candidate;
+    if (Array.isArray(value) && value.length) return value;
+  }
+  if (typeof args?.action === 'string') return [args];
+  return [];
+}
+
+function safeParse(text: string): unknown {
+  try {
+    return JSON.parse(text);
+  } catch {
+    return undefined;
+  }
+}
+
 async function runBatch(provider: TodoProvider, operations: any[]): Promise<unknown> {
   const results = [];
   for (const [index, op] of operations.entries()) {
@@ -598,10 +622,23 @@ async function runBatch(provider: TodoProvider, operations: any[]): Promise<unkn
 async function handleToolCall(env: Env, name: string, args: any): Promise<unknown> {
   const provider = buildProvider(env);
   try {
-    const result =
-      name === 'batch'
-        ? await runBatch(provider, Array.isArray(args.operations) ? args.operations : [])
-        : await execTool(provider, name, args);
+    let result: unknown;
+    if (name === 'batch') {
+      const operations = coerceOperations(args);
+      if (!operations.length) {
+        // Never report an empty batch as success — the caller would believe
+        // the work was applied.
+        console.log('batch: no operations parsed from keys', Object.keys(args ?? {}));
+        return toolContent(
+          'No operations were supplied. Pass operations as an array, e.g. ' +
+            '{"operations":[{"action":"create","title":"Buy boxes","project":"Pacifica"}]}',
+          true,
+        );
+      }
+      result = await runBatch(provider, operations);
+    } else {
+      result = await execTool(provider, name, args);
+    }
     const key = ARRAY_KEYS[name];
     return toolContent(key && Array.isArray(result) ? { [key]: result } : result);
   } catch (e) {
