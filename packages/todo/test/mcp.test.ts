@@ -49,6 +49,25 @@ describe('mcp endpoint', () => {
     }
   });
 
+  it('advertises an output schema for every tool', async () => {
+    const res = await rpc('tools/list');
+    const body: any = await res.json();
+    const missing = body.result.tools
+      .filter((t: any) => !t.outputSchema)
+      .map((t: any) => t.name);
+    expect(missing).toEqual([]);
+  });
+
+  it('returns structuredContent matching the declared shape', async () => {
+    const res = await rpc('tools/call', {
+      name: 'extract_people',
+      arguments: { text: 'Court and Matt are handling it' },
+    });
+    const body: any = await res.json();
+    expect(body.result.structuredContent).toEqual({ items: ['Matt', 'Courtney'] });
+    expect(JSON.parse(body.result.content[0].text)).toEqual({ items: ['Matt', 'Courtney'] });
+  });
+
   it('runs extraction tools without touching Todoist', async () => {
     const res = await rpc('tools/call', {
       name: 'extract_action_items',

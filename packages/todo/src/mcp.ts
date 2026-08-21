@@ -286,6 +286,151 @@ const TOOL_DEFS = [
   },
 ] as const;
 
+
+/* ---- output schemas (MCP 2025-06-18) --------------------------------- */
+
+const TASK_SHAPE = {
+  type: 'object',
+  properties: {
+    id: { type: 'string' },
+    title: { type: 'string' },
+    description: { type: 'string' },
+    project: { type: 'string' },
+    section: { type: 'string' },
+    priority: { type: 'string' },
+    labels: { type: 'array', items: { type: 'string' } },
+    due: {
+      type: 'object',
+      properties: { date: { type: 'string' }, string: { type: 'string' } },
+    },
+    assignee: { type: 'string' },
+    completed: { type: 'boolean' },
+    match_score: { type: 'number' },
+  },
+  required: ['id', 'title', 'completed'],
+} as const;
+
+const NAMED = (extra: Record<string, unknown> = {}) => ({
+  type: 'object',
+  properties: { id: { type: 'string' }, name: { type: 'string' }, ...extra },
+  required: ['id', 'name'],
+});
+
+const listOf = (key: string, items: unknown) => ({
+  type: 'object',
+  properties: { [key]: { type: 'array', items } },
+  required: [key],
+});
+
+const mutation = (extra: Record<string, unknown> = {}) => ({
+  type: 'object',
+  properties: {
+    action: { type: 'string', description: 'What happened, e.g. created / updated_existing / exists' },
+    reason: { type: 'string' },
+    ...extra,
+  },
+  required: ['action'],
+});
+
+const TASK_GROUPS = { type: 'object', additionalProperties: { type: 'array', items: TASK_SHAPE } };
+
+const SECTION_TASKS = {
+  type: 'object',
+  properties: { name: { type: 'string' }, tasks: { type: 'array', items: TASK_SHAPE } },
+};
+
+const OUTPUT_SCHEMAS: Record<string, unknown> = {
+  list_projects: listOf('projects', NAMED({ shared: { type: 'boolean' } })),
+  get_project: {
+    type: 'object',
+    properties: {
+      id: { type: 'string' },
+      name: { type: 'string' },
+      sections: { type: 'array', items: SECTION_TASKS },
+      unsectioned_tasks: { type: 'array', items: TASK_SHAPE },
+      open_task_count: { type: 'number' },
+    },
+    required: ['name', 'sections', 'open_task_count'],
+  },
+  list_sections: listOf('sections', {
+    type: 'object',
+    properties: { name: { type: 'string' }, open_tasks: { type: 'number' } },
+  }),
+  list_labels: listOf('labels', NAMED()),
+  search_tasks: listOf('tasks', TASK_SHAPE),
+  next: listOf('tasks', TASK_SHAPE),
+  waiting: listOf('tasks', TASK_SHAPE),
+  blocked: listOf('tasks', TASK_SHAPE),
+  create_project: mutation({ project: NAMED({ shared: { type: 'boolean' } }) }),
+  create_section: mutation({
+    section: { type: 'object', properties: { id: { type: 'string' }, name: { type: 'string' }, project: { type: 'string' } } },
+  }),
+  create_label: mutation({ label: NAMED() }),
+  create_task: mutation({ task: TASK_SHAPE }),
+  update_task: mutation({ task: TASK_SHAPE }),
+  complete_task: mutation({ task: TASK_SHAPE }),
+  reopen_task: mutation({ task: TASK_SHAPE }),
+  delete_task: mutation({ task: TASK_SHAPE }),
+  move_task: mutation({ task: TASK_SHAPE }),
+  add_comment: mutation({ task: TASK_SHAPE }),
+  assign_task: mutation({ assignee: { type: 'string' }, task: TASK_SHAPE }),
+  today: {
+    type: 'object',
+    properties: { overdue: TASK_GROUPS, today: TASK_GROUPS, upcoming_7_days: TASK_GROUPS },
+    required: ['overdue', 'today', 'upcoming_7_days'],
+  },
+  sync: {
+    type: 'object',
+    properties: {
+      synced: { type: 'boolean' },
+      projects: { type: 'number' },
+      open_tasks: { type: 'number' },
+      labels: { type: 'number' },
+    },
+    required: ['synced'],
+  },
+  batch: {
+    type: 'object',
+    properties: {
+      applied: { type: 'number' },
+      failed: { type: 'number' },
+      results: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            index: { type: 'number' },
+            action: { type: 'string' },
+            status: { type: 'string', enum: ['ok', 'error'] },
+            error: { type: 'string' },
+          },
+          required: ['index', 'action', 'status'],
+        },
+      },
+    },
+    required: ['applied', 'failed', 'results'],
+  },
+  extract_action_items: listOf('items', { type: 'string' }),
+  extract_completed_items: listOf('items', { type: 'string' }),
+  extract_people: listOf('items', { type: 'string' }),
+  extract_dates: listOf('items', { type: 'string' }),
+};
+
+// Structured output must be a JSON object, so array results are named.
+const ARRAY_KEYS: Record<string, string> = {
+  list_projects: 'projects',
+  list_sections: 'sections',
+  list_labels: 'labels',
+  search_tasks: 'tasks',
+  next: 'tasks',
+  waiting: 'tasks',
+  blocked: 'tasks',
+  extract_action_items: 'items',
+  extract_completed_items: 'items',
+  extract_people: 'items',
+  extract_dates: 'items',
+};
+
 function ok(id: JsonRpcRequest['id'], result: unknown): JsonRpcResponse {
   return { jsonrpc: '2.0', id: id ?? null, result };
 }
@@ -295,11 +440,14 @@ function err(id: JsonRpcRequest['id'], code: number, message: string): JsonRpcRe
 }
 
 function toolContent(payload: unknown, isError = false) {
+  const text = typeof payload === 'string' ? payload : JSON.stringify(payload, null, 2);
   return {
     ...(isError ? { isError: true } : {}),
-    content: [
-      { type: 'text', text: typeof payload === 'string' ? payload : JSON.stringify(payload, null, 2) },
-    ],
+    // The text block stays for clients that ignore structured output.
+    content: [{ type: 'text', text }],
+    ...(isError || typeof payload !== 'object' || payload === null
+      ? {}
+      : { structuredContent: payload }),
   };
 }
 
@@ -454,7 +602,8 @@ async function handleToolCall(env: Env, name: string, args: any): Promise<unknow
       name === 'batch'
         ? await runBatch(provider, Array.isArray(args.operations) ? args.operations : [])
         : await execTool(provider, name, args);
-    return toolContent(result);
+    const key = ARRAY_KEYS[name];
+    return toolContent(key && Array.isArray(result) ? { [key]: result } : result);
   } catch (e) {
     if (e instanceof UnknownToolError) return toolContent(e.message, true);
     throw e;
@@ -482,7 +631,12 @@ export async function handleRpc(env: Env, req: JsonRpcRequest): Promise<JsonRpcR
       case 'ping':
         return ok(req.id, {});
       case 'tools/list':
-        return ok(req.id, { tools: TOOL_DEFS });
+        return ok(req.id, {
+          tools: TOOL_DEFS.map((tool) => {
+            const outputSchema = OUTPUT_SCHEMAS[tool.name];
+            return outputSchema ? { ...tool, outputSchema } : tool;
+          }),
+        });
       case 'tools/call': {
         const params = (req.params ?? {}) as { name?: string; arguments?: Record<string, unknown> };
         if (!params.name) return err(req.id, -32602, 'missing tool name');
