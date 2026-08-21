@@ -92,7 +92,9 @@ export interface TodoistApi {
   reopenTask(taskId: string): Promise<void>;
   deleteTask(taskId: string): Promise<void>;
   addComment(taskId: string, content: string): Promise<void>;
+  createProject(name: string, parentId?: string): Promise<Project>;
   createSection(projectId: string, name: string): Promise<Section>;
+  createLabel(name: string): Promise<Label>;
   moveTask(taskId: string, dest: { projectId?: string; sectionId?: string }): Promise<void>;
 }
 
@@ -173,6 +175,19 @@ export class TodoistClient implements TodoistApi {
 
   async addComment(taskId: string, content: string): Promise<void> {
     await this.req('POST', `${API_URL}/comments`, { task_id: taskId, content });
+  }
+
+  async createProject(name: string, parentId?: string): Promise<Project> {
+    const raw = await this.req('POST', `${API_URL}/projects`, {
+      name,
+      ...(parentId ? { parent_id: parentId } : {}),
+    });
+    return { id: String(raw.id), name: raw.name ?? '', shared: Boolean(raw.is_shared ?? raw.shared) };
+  }
+
+  async createLabel(name: string): Promise<Label> {
+    const raw = await this.req('POST', `${API_URL}/labels`, { name });
+    return { id: String(raw.id), name: raw.name ?? '' };
   }
 
   async createSection(projectId: string, name: string): Promise<Section> {

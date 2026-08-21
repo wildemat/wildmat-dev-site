@@ -39,6 +39,7 @@ describe('mcp endpoint', () => {
     const names = body.result.tools.map((t: any) => t.name);
     for (const expected of [
       'list_projects', 'get_project', 'list_sections', 'search_tasks',
+      'create_project', 'create_section', 'create_label',
       'create_task', 'update_task', 'complete_task', 'reopen_task',
       'delete_task', 'move_task', 'assign_task', 'add_comment', 'list_labels',
       'today', 'next', 'waiting', 'blocked', 'sync',

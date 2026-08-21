@@ -43,6 +43,34 @@ const TOOL_DEFS = [
     inputSchema: { type: 'object', properties: { name: PROJECT } },
   },
   {
+    name: 'create_project',
+    description:
+      'Create a new project (e.g. Moving, Homeschool). Duplicate-safe: if a project with a near-identical name exists it is returned instead of creating a second one.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: str('Project name'),
+        parent: str('Optional parent project name, to nest this one under it'),
+      },
+      required: ['name'],
+    },
+  },
+  {
+    name: 'create_section',
+    description:
+      'Create a section inside a project (e.g. Utilities, Packing). Duplicate-safe. Sections are also created automatically when create_task or move_task names an unknown one.',
+    inputSchema: {
+      type: 'object',
+      properties: { name: str('Section name'), project: PROJECT },
+      required: ['name'],
+    },
+  },
+  {
+    name: 'create_label',
+    description: 'Create a label (e.g. Waiting, Errand). Duplicate-safe.',
+    inputSchema: { type: 'object', properties: { name: str('Label name') }, required: ['name'] },
+  },
+  {
     name: 'list_sections',
     description: 'List the sections of a project.',
     inputSchema: { type: 'object', properties: { project: PROJECT } },
@@ -245,6 +273,12 @@ async function handleToolCall(env: Env, name: string, args: any): Promise<unknow
       return toolContent(await provider.listProjects());
     case 'get_project':
       return toolContent(await provider.getProject(args.name));
+    case 'create_project':
+      return toolContent(await provider.createProject(args.name, args.parent));
+    case 'create_section':
+      return toolContent(await provider.createSection(args.name, args.project));
+    case 'create_label':
+      return toolContent(await provider.createLabel(args.name));
     case 'list_sections': {
       const detail: any = await provider.getProject(args.project);
       return toolContent(

@@ -1,4 +1,4 @@
-import type { Section, Snapshot, Task, TodoistApi } from '../src/todoist.js';
+import type { Label, Project, Section, Snapshot, Task, TodoistApi } from '../src/todoist.js';
 
 const today = () => new Date().toISOString().slice(0, 10);
 const shiftDays = (days: number) =>
@@ -114,6 +114,20 @@ export class FakeApi implements TodoistApi {
   async addComment(taskId: string, content: string): Promise<void> {
     this.calls.push(['addComment', [taskId, content]]);
     this.comments.push({ taskId, content });
+  }
+
+  async createProject(name: string, parentId?: string): Promise<Project> {
+    this.calls.push(['createProject', [name, parentId]]);
+    const project = { id: `p${++this.n}`, name, shared: false };
+    this.snap.projects.push(project);
+    return project;
+  }
+
+  async createLabel(name: string): Promise<Label> {
+    this.calls.push(['createLabel', name]);
+    const label = { id: `l${++this.n}`, name };
+    this.snap.labels.push(label);
+    return label;
   }
 
   async createSection(projectId: string, name: string): Promise<Section> {

@@ -208,6 +208,52 @@ export class TodoProvider {
       .map(([task, score]) => ({ ...this.render(snap, task), match_score: Math.round(score * 100) / 100 }));
   }
 
+  // -- container writes -----------------------------------------------------
+
+  /** Create a project; returns the existing one if a near-identical name is already there. */
+  async createProject(name: string, parent?: string): Promise<Rendered> {
+    const snap = await this.api.snapshot();
+    const existing = snap.projects.find(
+      (p) => matching.similarity(name, p.name) >= this.config.duplicateThreshold,
+    );
+    if (existing) {
+      return {
+        action: 'exists',
+        reason: 'a project with this name already exists',
+        project: { id: existing.id, name: existing.name, shared: existing.shared },
+      };
+    }
+    const parentId = parent ? this.resolveProject(snap, parent).id : undefined;
+    const project = await this.api.createProject(name, parentId);
+    return {
+      action: 'created',
+      project: { id: project.id, name: project.name, shared: project.shared },
+    };
+  }
+
+  async createSection(name: string, project?: string): Promise<Rendered> {
+    const snap = await this.api.snapshot();
+    const target = this.resolveProject(snap, project);
+    const existing = snap.sections.find(
+      (s) =>
+        s.projectId === target.id && matching.similarity(name, s.name) >= this.config.duplicateThreshold,
+    );
+    const section = existing ?? (await this.api.createSection(target.id, name));
+    return {
+      action: existing ? 'exists' : 'created',
+      section: { id: section.id, name: section.name, project: target.name },
+    };
+  }
+
+  async createLabel(name: string): Promise<Rendered> {
+    const snap = await this.api.snapshot();
+    const existing = snap.labels.find(
+      (l) => matching.similarity(name, l.name) >= this.config.duplicateThreshold,
+    );
+    const label = existing ?? (await this.api.createLabel(name));
+    return { action: existing ? 'exists' : 'created', label: { id: label.id, name: label.name } };
+  }
+
   // -- writes --------------------------------------------------------------
 
   async createTask(args: CreateArgs): Promise<Rendered> {

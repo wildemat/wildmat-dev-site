@@ -34,6 +34,42 @@ describe('create', () => {
   });
 });
 
+describe('containers', () => {
+  it('creates a project', async () => {
+    const result: any = await provider.createProject('Homeschool');
+    expect(result.action).toBe('created');
+    expect(result.project.name).toBe('Homeschool');
+    expect(api.calls.some(([name]) => name === 'createProject')).toBe(true);
+  });
+
+  it('returns the existing project instead of duplicating', async () => {
+    const result: any = await provider.createProject('Moving');
+    expect(result.action).toBe('exists');
+    expect(result.project.id).toBe('p1');
+    expect(api.calls.every(([name]) => name !== 'createProject')).toBe(true);
+  });
+
+  it('nests under a parent project', async () => {
+    await provider.createProject('Closing docs', 'Moving');
+    const call: any = api.calls.find(([name]) => name === 'createProject');
+    expect(call[1]).toEqual(['Closing docs', 'p1']);
+  });
+
+  it('creates a section in the default project and dedupes', async () => {
+    const created: any = await provider.createSection('School');
+    expect(created.action).toBe('created');
+    expect(created.section.project).toBe('Moving');
+    const dupe: any = await provider.createSection('Utilities');
+    expect(dupe.action).toBe('exists');
+    expect(dupe.section.id).toBe('s1');
+  });
+
+  it('creates a label and dedupes', async () => {
+    expect((await provider.createLabel('Errand') as any).action).toBe('created');
+    expect((await provider.createLabel('Waiting') as any).action).toBe('exists');
+  });
+});
+
 describe('complete', () => {
   it('resolves paraphrases and leaves an audit comment', async () => {
     const result: any = await provider.completeTask('changing the utilities', {
