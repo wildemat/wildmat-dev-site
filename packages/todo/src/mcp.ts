@@ -520,14 +520,13 @@ export async function handleRpc(env: Env, req: JsonRpcRequest): Promise<JsonRpcR
 }
 
 export async function handleMcpRequest(env: Env, request: Request): Promise<Response> {
-  if (request.method === 'GET') {
-    return new Response('MCP endpoint — POST JSON-RPC 2.0 messages here.', {
-      status: 200,
-      headers: { 'content-type': 'text/plain' },
-    });
-  }
+  // Streamable HTTP requires a GET to open an SSE stream or answer 405; this
+  // server never initiates messages, so 405 is the correct signal.
   if (request.method !== 'POST') {
-    return new Response('method not allowed', { status: 405 });
+    return new Response('method not allowed', {
+      status: 405,
+      headers: { allow: 'POST' },
+    });
   }
 
   let body: unknown;
